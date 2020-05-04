@@ -15,6 +15,8 @@ public final class Dealer {
      */
     private Deck deck;
 
+    private Hand dealersHand;
+
     public Dealer(){
         this.deck = new Deck();
     }
@@ -28,5 +30,7 @@ public final class Dealer {
         return deck;
     }
 
-
+    public Hand getDealersHand() {
+        return dealersHand;
+    }
 }

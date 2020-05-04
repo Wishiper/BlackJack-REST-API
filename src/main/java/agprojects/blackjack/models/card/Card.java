@@ -3,21 +3,21 @@ package agprojects.blackjack.models.card;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-//import javax.persistence.*;
+import javax.persistence.*;
 
 /**
  * Wrapper class used to store information about a card.
  */
-//@Entity
-//@Table(name = "card")
+@Entity
+@Table(name = "card")
 @NoArgsConstructor
 public final class Card {
     /**
      * The id of the card. Used for persistence.
      */
     @Getter
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
 
@@ -27,6 +27,7 @@ public final class Card {
      * @see CardType
      */
     @Getter
+    @Enumerated(EnumType.STRING)
     private CardType type;
 
     public Card(CardType type) {
