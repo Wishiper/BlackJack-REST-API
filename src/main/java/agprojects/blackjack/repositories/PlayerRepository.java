@@ -1,13 +1,12 @@
 package agprojects.blackjack.repositories;
 
-import agprojects.blackjack.models.card.Card;
+import agprojects.blackjack.models.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository class for all Cards.
+ * Repository class for all Players.
  */
 @Repository
-public interface CardRepository extends JpaRepository<Card,Integer> {
+public interface PlayerRepository extends JpaRepository<Player,Integer> {
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Wrapper class used to store information about a card.
  */
 @Entity
-@Table(name = "card")
+@Table(name = "cards")
 @NoArgsConstructor
 public final class Card {
     /**

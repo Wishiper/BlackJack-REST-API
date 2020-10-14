@@ -11,9 +11,9 @@ public final class Dealer {
 
 
     /**
-     * The dealers deck which constists of 312 cards (6 decks)
+     * The dealers deck which consists of 312 cards (6 decks)
      */
-    private Deck deck;
+    private final Deck deck;
 
     private Hand dealersHand;
 
