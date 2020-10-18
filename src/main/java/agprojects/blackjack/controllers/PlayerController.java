@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/api/player")
 public class PlayerController {
 
     @Autowired

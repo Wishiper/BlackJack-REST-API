@@ -10,12 +10,17 @@ import java.util.List;
 @Table(name = "hands")
 public final class Hand {
 
+    public Hand() {
+        this.cardsInHand = new ArrayList<>();
+    }
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "handId")
     private int handId;
 
-    @Column(name = "cards_in_hand")
-    private ArrayList<Card> cardsInHand;
+    @Column(name = "cardsInHand", length = 1024)
+    private final ArrayList<Card> cardsInHand;
 
     public List<Card> getCardsInHand() {
         return cardsInHand;
@@ -23,5 +28,9 @@ public final class Hand {
 
     public int getHandId() {
         return handId;
+    }
+
+    public void  addCard(Card card){
+        cardsInHand.add(card);
     }
 }

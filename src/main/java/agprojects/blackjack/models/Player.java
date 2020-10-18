@@ -2,6 +2,7 @@ package agprojects.blackjack.models;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "players")
@@ -22,8 +23,9 @@ public class Player {
     /**
      * The current hand of the player.
      */
-    @OneToOne
-    private Hand hand;
+    @OneToMany(cascade=CascadeType.ALL)
+    @Column(name = "hands")
+    private List<Hand> hands;
 
     public int getPlayerId() {
         return playerId;
@@ -37,8 +39,8 @@ public class Player {
         this.name = name;
     }
 
-    public Hand getHand() {
-        return hand;
+    public List<Hand> getHand() {
+        return hands;
     }
 
 

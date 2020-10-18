@@ -1,24 +1,25 @@
 package agprojects.blackjack.controllers;
 
-import agprojects.blackjack.models.card.Card;
-import agprojects.blackjack.services.DealerService;
+import agprojects.blackjack.models.Hand;
+import agprojects.blackjack.services.DealerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
 
 
 @RestController
-@RequestMapping("/dealer")
+@RequestMapping("/api/dealer")
 public class DealerController {
 
     @Autowired
-    DealerService dealerService;
+    DealerServiceImpl dealerService;
 
 
-    @GetMapping("draw")
-    public Card hit(){
-        return dealerService.draw();
+    @GetMapping("deal")
+    public Map<String, Hand> deal(){
+        return dealerService.deal();
     }
 
     @GetMapping("decks")

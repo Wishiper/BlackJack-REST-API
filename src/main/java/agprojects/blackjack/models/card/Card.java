@@ -1,36 +1,26 @@
 package agprojects.blackjack.models.card;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Wrapper class used to store information about a card.
  */
-@Entity
-@Table(name = "cards")
-@NoArgsConstructor
-public final class Card {
-    /**
-     * The id of the card. Used for persistence.
-     */
-    @Getter
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
+public final class Card implements Serializable {
 
     /**
      * The type of card.
      *
      * @see CardType
      */
-    @Getter
     @Enumerated(EnumType.STRING)
-    private CardType type;
+    private final CardType type;
 
     public Card(CardType type) {
         this.type = type;
+    }
+
+    public CardType getType() {
+        return type;
     }
 }

@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 @Component
 public final class Dealer {
 
-
     /**
      * The dealers deck which consists of 312 cards (6 decks)
      */
     private final Deck deck;
 
-    private Hand dealersHand;
+    private final Hand dealersHand;
 
-    public Dealer(){
+    public Dealer() {
         this.deck = new Deck();
+        this.dealersHand = new Hand();
     }
 
     public Card draw(){
