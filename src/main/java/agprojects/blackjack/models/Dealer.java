@@ -14,6 +14,9 @@ public final class Dealer {
      */
     private final Deck deck;
 
+    /**
+     * The dealers current hand in the BlackJack round.
+     */
     private final Hand dealersHand;
 
     public Dealer() {
@@ -21,6 +24,10 @@ public final class Dealer {
         this.dealersHand = new Hand();
     }
 
+    /**
+     * Draws one card from the deck.
+     * @return Card Object - the top card in the deck.
+     */
     public Card draw(){
         return deck.getCard();
 

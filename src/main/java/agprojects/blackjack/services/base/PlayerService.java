@@ -4,6 +4,9 @@ import agprojects.blackjack.models.Player;
 
 import java.util.List;
 
+/**
+ * Base methods for the Player Service.
+ */
 public interface PlayerService {
 
     Player createNewPlayer(Player player);

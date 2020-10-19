@@ -9,7 +9,7 @@ import java.io.Serializable;
 public final class Card implements Serializable {
 
     /**
-     * The type of card.
+     * The type of card (Rank and Suit).
      *
      * @see CardType
      */

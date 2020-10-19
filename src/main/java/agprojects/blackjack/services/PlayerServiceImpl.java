@@ -16,6 +16,11 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     PlayerRepository playerRepository;
 
+    /**
+     * Creates new player and save it into the database.
+     * @param player Player object.
+     * @return The new player.
+     */
     @Override
     public Player createNewPlayer(Player player) {
 
@@ -29,6 +34,10 @@ public class PlayerServiceImpl implements PlayerService {
 
     }
 
+    /**
+     * Gets all players from the database.
+     * @return List of Players.
+     */
     @Override
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();

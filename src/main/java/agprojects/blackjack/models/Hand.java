@@ -18,7 +18,9 @@ public final class Hand {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "handId")
     private int handId;
-
+    /**
+     * List of cards in the current Hand, a player could have multiple hands if he splits for example.
+     */
     @Column(name = "cardsInHand", length = 1024)
     private final ArrayList<Card> cardsInHand;
 
@@ -30,6 +32,10 @@ public final class Hand {
         return handId;
     }
 
+    /**
+     * Adds a card to the Hand.
+     * @param card Card object.
+     */
     public void  addCard(Card card){
         cardsInHand.add(card);
     }

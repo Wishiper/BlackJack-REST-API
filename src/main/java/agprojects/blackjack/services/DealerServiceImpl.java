@@ -15,7 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Service responsible for all the dealing done in the game by the dealer.
+ */
 @Service
 public class DealerServiceImpl implements DealerService {
 
@@ -42,6 +44,10 @@ public class DealerServiceImpl implements DealerService {
         return playerHands;
     }
 
+    /**
+     * Deals a card to the dealer if his hand is empty in dealing phase.
+     * @param playerHands List of all the player's hands in the current game round.
+     */
     private void dealDealer(Map<String, Hand> playerHands) {
         if(dealer.getDealersHand().getCardsInHand().isEmpty()) {
             Card dealtCard = dealer.draw();
@@ -50,6 +56,11 @@ public class DealerServiceImpl implements DealerService {
         }
     }
 
+    /**
+     * Deals 2 cards to each player and one to the dealer in order.
+     * @param activePlayers List of all active players in the current round.
+     * @param playerHands List of all the player's hands in the current game round.
+     */
     private void dealPlayers(List<Player> activePlayers, Map<String, Hand> playerHands) {
         for (int i = 0; i < 2; i++) {
             for (Player player : activePlayers) {
@@ -69,6 +80,10 @@ public class DealerServiceImpl implements DealerService {
     }
 
 
+    /**
+     * Gets the number of cards left in the deck of cards.
+     * @return number of cards left in the deck.
+     */
     public int getNumberOfCards() {
         return dealer.getDeck().getNumberOfCards();
     }
