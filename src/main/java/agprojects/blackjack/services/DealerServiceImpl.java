@@ -34,7 +34,7 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public Map<String, Hand> deal() {
-        List<Player> activePlayers = playerService.getAllActivePlayers();
+        List<Player> activePlayers = playerService.getAllPlayers();
         Map<String,Hand> playerHands = new HashMap<>();
         dealPlayers(activePlayers, playerHands);
 

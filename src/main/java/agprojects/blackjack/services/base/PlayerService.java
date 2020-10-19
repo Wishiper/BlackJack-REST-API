@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface PlayerService {
 
-    Player createNewPlayer(String playerName);
+    Player createNewPlayer(Player player);
 
     void deletePlayerByName(String playerName);
 
-    List<Player> getAllActivePlayers();
+    List<Player> getAllPlayers();
 
     void hit();
 

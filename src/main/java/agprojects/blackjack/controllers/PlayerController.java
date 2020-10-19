@@ -6,18 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/player")
+@RequestMapping("/api/players")
 public class PlayerController {
 
     @Autowired
     PlayerServiceImpl playerService;
 
-    @PostMapping("new")
-    public Player createNewPlayer(@Valid @RequestBody String playerName){
-        return playerService.createNewPlayer(playerName);
+    @GetMapping
+    public List<Player> getAllPlayers(){
+        return playerService.getAllPlayers();
+    }
+
+    @PostMapping
+    public Player createNewPlayer(@Valid @RequestBody Player player){
+        return playerService.createNewPlayer(player);
     }
 
     @GetMapping("/{playerId}")

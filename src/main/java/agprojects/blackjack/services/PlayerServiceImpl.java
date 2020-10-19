@@ -17,12 +17,11 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerRepository playerRepository;
 
     @Override
-    public Player createNewPlayer(String playerName) {
-        Player newPlayer = new Player();
-        newPlayer.setName(playerName);
-        playerRepository.save(newPlayer);
+    public Player createNewPlayer(Player player) {
 
-        return newPlayer;
+        playerRepository.save(player);
+
+        return player;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> getAllActivePlayers() {
+    public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
 
