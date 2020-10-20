@@ -27,6 +27,12 @@ public class Player {
     @Column(name = "hands")
     private List<Hand> hands;
 
+    @Column(name = "balance")
+    private double balance;
+
+    @Column(name = "bet")
+    private double bet;
+
     public int getPlayerId() {
         return playerId;
     }
@@ -39,9 +45,27 @@ public class Player {
         this.name = name;
     }
 
-    public List<Hand> getHand() {
+    public List<Hand> getHands() {
         return hands;
     }
 
+    public void setHands(List<Hand> hands) {
+        this.hands = hands;
+    }
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
 }

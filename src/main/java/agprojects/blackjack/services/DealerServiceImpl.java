@@ -65,14 +65,14 @@ public class DealerServiceImpl implements DealerService {
         for (int i = 0; i < 2; i++) {
             for (Player player : activePlayers) {
                 Card dealtCard = dealer.draw();
-                if (player.getHand().isEmpty()) {
+                if (player.getHands().isEmpty()) {
                     Hand playerHand = new Hand();
                     playerHand.addCard(dealtCard);
-                    player.getHand().add(playerHand);
+                    player.getHands().add(playerHand);
                 } else {
-                    player.getHand().get(0).addCard(dealtCard);
+                    player.getHands().get(0).addCard(dealtCard);
                 }
-                playerHands.put(player.getName(), player.getHand().get(0));
+                playerHands.put(player.getName(), player.getHands().get(0));
                 playerRepository.save(player);
             }
             dealDealer(playerHands);
