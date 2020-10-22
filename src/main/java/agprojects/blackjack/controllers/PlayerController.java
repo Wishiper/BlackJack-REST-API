@@ -3,6 +3,8 @@ package agprojects.blackjack.controllers;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.services.PlayerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,8 +24,8 @@ public class PlayerController {
     }
 
     @PostMapping
-    public Player createNewPlayer(@Valid @RequestBody Player player){
-        return playerService.createNewPlayer(player);
+    public ResponseEntity<Player> createNewPlayer(@Valid @RequestBody Player player){
+        return new ResponseEntity<>(playerService.createNewPlayer(player), HttpStatus.OK);
     }
 
     @GetMapping("/{playerId}")
@@ -31,4 +33,14 @@ public class PlayerController {
         return playerService.getPlayerById(playerId);
     }
 
+
+    @PutMapping("/bet/{playerId}/{playerBet}")
+    public Player bet(@PathVariable int playerId, @PathVariable double playerBet) {
+        return playerService.placeBet(playerId,playerBet);
+    }
+
+    @PutMapping("/{playerId}/balance/{playerBalance}")
+    public Player addBalanceToPlayer(@PathVariable int playerId, @PathVariable double playerBalance) {
+        return playerService.addBalanceToPlayer(playerId,playerBalance);
+    }
 }

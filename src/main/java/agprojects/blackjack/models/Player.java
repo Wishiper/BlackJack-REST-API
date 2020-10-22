@@ -2,6 +2,7 @@ package agprojects.blackjack.models;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -17,21 +18,22 @@ public class Player {
     /**
      * Name of the player.
      */
+    @NotBlank(message = "Player name cannot be empty")
     @Column(name = "name")
     private String name;
-
-    /**
-     * The current hand of the player.
-     */
-    @OneToMany(cascade=CascadeType.ALL)
-    @Column(name = "hands")
-    private List<Hand> hands;
 
     @Column(name = "balance")
     private double balance;
 
     @Column(name = "bet")
     private double bet;
+
+    /**
+     * List that holds the current hands of the player.
+     */
+    @OneToMany(cascade=CascadeType.ALL)
+    @Column(name = "hands")
+    private List<Hand> hands;
 
     public int getPlayerId() {
         return playerId;
@@ -43,14 +45,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Hand> getHands() {
-        return hands;
-    }
-
-    public void setHands(List<Hand> hands) {
-        this.hands = hands;
     }
 
     public double getBalance() {
@@ -67,5 +61,13 @@ public class Player {
 
     public void setBet(double bet) {
         this.bet = bet;
+    }
+
+    public List<Hand> getHands() {
+        return hands;
+    }
+
+    public void setHands(List<Hand> hands) {
+        this.hands = hands;
     }
 }

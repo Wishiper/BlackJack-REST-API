@@ -1,5 +1,6 @@
 package agprojects.blackjack.services;
 
+import agprojects.blackjack.exception.ApiRequestException;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.repositories.PlayerRepository;
 import agprojects.blackjack.services.base.PlayerService;
@@ -41,6 +42,48 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
+    }
+
+    /**
+     * Place a bet for a player by their playerId
+     * @param playerId Id of the betting player
+     * @param playerBet The amount that the player bets
+     * @return Updated player object
+     */
+    @Override
+    public Player placeBet(int playerId, double playerBet) {
+
+        Optional<Player> playerToBet = playerRepository.findById(playerId);
+        if(playerToBet.isPresent()){
+            Player player = playerToBet.get();
+            player.setBet(playerBet);
+            player.setBalance(player.getBalance() - playerBet);
+            playerRepository.save(player);
+            return player;
+
+        }else{
+            throw new ApiRequestException("Player with id: " + playerId +" was not found");
+        }
+    }
+
+    /**
+     * Add balance to a player by their playerId
+     * @param playerId  Id of the betting player
+     * @param playerBalance The amount of balance the player inserted
+     * @return Updated player object
+     */
+    @Override
+    public Player addBalanceToPlayer(int playerId, double playerBalance) {
+        Optional<Player> playerToBet = playerRepository.findById(playerId);
+        if(playerToBet.isPresent()){
+            Player player = playerToBet.get();
+            player.setBalance(playerBalance);
+            playerRepository.save(player);
+            return player;
+
+        }else{
+            throw new ApiRequestException("Player with id: " + playerId +" was not found");
+        }
     }
 
     @Override

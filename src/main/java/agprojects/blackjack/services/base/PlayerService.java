@@ -15,6 +15,10 @@ public interface PlayerService {
 
     List<Player> getAllPlayers();
 
+    Player placeBet(int playerId, double playerBet);
+
+    Player addBalanceToPlayer(int playerId, double playerBalance);
+
     void hit();
 
     void doubleDown();
