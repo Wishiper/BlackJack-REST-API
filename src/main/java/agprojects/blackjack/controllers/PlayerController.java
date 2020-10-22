@@ -19,8 +19,8 @@ public class PlayerController {
     PlayerServiceImpl playerService;
 
     @GetMapping
-    public List<Player> getAllPlayers(){
-        return playerService.getAllPlayers();
+    public ResponseEntity<List<Player>> getAllPlayers(){
+        return new ResponseEntity<>(playerService.getAllPlayers(),HttpStatus.OK);
     }
 
     @PostMapping
@@ -29,18 +29,18 @@ public class PlayerController {
     }
 
     @GetMapping("/{playerId}")
-    public Optional<Player> getPlayerById(@PathVariable int playerId){
-        return playerService.getPlayerById(playerId);
+    public ResponseEntity<Optional<Player>> getPlayerById(@PathVariable int playerId){
+        return new ResponseEntity<>(playerService.getPlayerById(playerId),HttpStatus.OK);
     }
 
 
     @PutMapping("/bet/{playerId}/{playerBet}")
-    public Player bet(@PathVariable int playerId, @PathVariable double playerBet) {
-        return playerService.placeBet(playerId,playerBet);
+    public ResponseEntity<Player> placeBetByPlayerId(@PathVariable int playerId, @PathVariable double playerBet) {
+        return new ResponseEntity<>(playerService.placeBet(playerId,playerBet), HttpStatus.OK);
     }
 
     @PutMapping("/{playerId}/balance/{playerBalance}")
-    public Player addBalanceToPlayer(@PathVariable int playerId, @PathVariable double playerBalance) {
-        return playerService.addBalanceToPlayer(playerId,playerBalance);
+    public ResponseEntity<Player> addBalanceToPlayer(@PathVariable int playerId, @PathVariable double playerBalance) {
+        return new ResponseEntity<>(playerService.addBalanceToPlayer(playerId,playerBalance), HttpStatus.OK);
     }
 }

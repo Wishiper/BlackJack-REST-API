@@ -3,6 +3,8 @@ package agprojects.blackjack.controllers;
 import agprojects.blackjack.models.Hand;
 import agprojects.blackjack.services.DealerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +20,13 @@ public class DealerController {
 
 
     @GetMapping("deal")
-    public Map<String, Hand> deal(){
-        return dealerService.deal();
+    public ResponseEntity<Map<String, Hand>> deal(){
+        return new ResponseEntity<>(dealerService.deal(), HttpStatus.OK);
     }
 
     @GetMapping("decks")
-    public int getNumberOfCards(){
-       return dealerService.getNumberOfCards();
+    public ResponseEntity<Integer> getNumberOfCards(){
+       return new ResponseEntity<>(dealerService.getNumberOfCards(),HttpStatus.OK);
     }
 }
 
