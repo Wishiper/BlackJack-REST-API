@@ -1,6 +1,7 @@
 package agprojects.blackjack.services.base;
 
 import agprojects.blackjack.models.Player;
+import agprojects.blackjack.models.dto.PlayerDTO;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface PlayerService {
 
-    Player createNewPlayer(Player player);
+    Player createNewPlayer(PlayerDTO player);
 
     void deletePlayerByName(String playerName);
 

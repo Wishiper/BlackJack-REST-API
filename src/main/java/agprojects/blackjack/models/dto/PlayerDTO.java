@@ -1,38 +1,22 @@
-package agprojects.blackjack.models;
+package agprojects.blackjack.models.dto;
 
-import javax.persistence.*;
-import javax.persistence.Table;
+import agprojects.blackjack.models.Hand;
+
+
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Entity
-@Table(name = "players")
-public class Player {
-    /**
-     * Id of the user.
-     */
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
+public class PlayerDTO {
+
+    @NotNull
     private int playerId;
-    /**
-     * Name of the player.
-     */
     @NotBlank(message = "Player name cannot be empty")
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "balance")
     private double balance;
-
-    @Column(name = "bet")
+    @Min(value = 2,message = "Bet value cannot be smaller than 2")
     private double bet;
-
-    /**
-     * List that holds the current hands of the player.
-     */
-    @OneToMany(cascade=CascadeType.ALL)
-    @Column(name = "hands")
     private List<Hand> hands;
 
     public int getPlayerId() {

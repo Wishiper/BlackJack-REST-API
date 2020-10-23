@@ -19,8 +19,8 @@ public final class Deck {
     private final Stack<Card> cards;
 
     /**
-     * Instantiates a list of cards and fills this list with all
-     * the cards from the enum CardType.
+     * Instantiates a stack of cards and fills this list with all
+     * the cards from the enum CardType 6 times - so there are 312 Cards in total.
      * All the cards will be shuffled when the list is created.
      *
      * @see CardType

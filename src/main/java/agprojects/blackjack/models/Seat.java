@@ -4,7 +4,7 @@ public final class Seat {
 
     private Player player;
 
-    private int seatNumber;
+    private final int seatNumber;
 
     private boolean isTaken;
 

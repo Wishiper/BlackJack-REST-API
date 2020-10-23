@@ -2,6 +2,8 @@ package agprojects.blackjack.services;
 
 import agprojects.blackjack.exception.ApiRequestException;
 import agprojects.blackjack.models.Player;
+import agprojects.blackjack.models.dto.CustomModelMapper;
+import agprojects.blackjack.models.dto.PlayerDTO;
 import agprojects.blackjack.repositories.PlayerRepository;
 import agprojects.blackjack.services.base.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,36 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     PlayerRepository playerRepository;
 
+    @Autowired
+    CustomModelMapper modelMapper;
+
+    public static final String PLAYER_NOT_FOUND = "Player with id: %s was not found";
     /**
      * Creates new player and save it into the database.
-     * @param player Player object.
+     * @param playerDTO PlayerDTO object.
      * @return The new player.
      */
     @Override
-    public Player createNewPlayer(Player player) {
-
+    public Player createNewPlayer(PlayerDTO playerDTO) {
+        Player player = modelMapper.convertFromPlayerDTO(playerDTO);
         playerRepository.save(player);
 
         return player;
+    }
+
+    /**
+     * Get player by player Id.
+     * @param playerId Id of the player.
+     * @return Player object.
+     */
+    public Player getPlayerById(int playerId){
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        if(playerOptional.isPresent()){
+            return playerOptional.get();
+        }else{
+
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
+        }
     }
 
     @Override
@@ -62,7 +83,7 @@ public class PlayerServiceImpl implements PlayerService {
             return player;
 
         }else{
-            throw new ApiRequestException("Player with id: " + playerId +" was not found");
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
         }
     }
 
@@ -82,7 +103,7 @@ public class PlayerServiceImpl implements PlayerService {
             return player;
 
         }else{
-            throw new ApiRequestException("Player with id: " + playerId +" was not found");
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
         }
     }
 
@@ -104,9 +125,5 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void split() {
 
-    }
-
-    public Optional<Player> getPlayerById(int playerId){
-        return playerRepository.findById(playerId);
     }
 }
