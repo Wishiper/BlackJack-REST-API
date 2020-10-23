@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "936c4406-9393-4e91-9f94-713611c12f94",
+		"name": "BlackJack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PlayerRequests",
+			"item": [
+				{
+					"name": "Create Player Raiche",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "124e312b-a8a0-4cad-94e4-a7b3fe1353b2",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": 1,\r\n    \"name\": \"Raiche\",\r\n    \"hand\": null,\r\n    \"balance\": 0.0,\r\n    \"bet\": 0.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/players"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Player RaicheX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b685747-b113-428c-a7a0-8f55e5ca1656",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": 2,\r\n    \"name\": \"RaicheX\",\r\n    \"hand\": null,\r\n    \"balance\": 0.0,\r\n    \"bet\": 0.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/players"
+					},
+					"response": []
+				},
+				{
+					"name": "Seat Player",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5cff44b8-ccd2-4f90-a3f2-b63486254710",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/players/seat/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "GetPlayerByID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1128dfca-f4bd-4d6b-9ffd-5516e98fa825",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/players/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPlayers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "54eb80a4-19e5-4126-b7b5-00de04a45dbc",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/players"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Balance to Player ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbf2d098-128b-4ac1-b016-e43906ffc7b2",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/players/1/balance/100"
+					},
+					"response": []
+				},
+				{
+					"name": "Player Bet ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a42f7ae-7ef4-4031-812b-2ac16fe92d59",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/players/bet/1/50"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Deal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e09250-f93b-44dc-99c0-e81c27011f5d",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/dealer/deal",
+				"description": "Draw a card from the BJ Deck"
+			},
+			"response": []
+		},
+		{
+			"name": "getNumberOfCards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2693fbb9-fc05-416b-aab2-d617b062aa52",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/dealer/decks",
+				"description": "Get number of cards left in the BJ deck"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
