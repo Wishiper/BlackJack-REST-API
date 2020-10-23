@@ -1,6 +1,6 @@
 package agprojects.blackjack.models;
 
-import agprojects.blackjack.exception.ApiRequestException;
+import agprojects.blackjack.exceptions.ApiRequestException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

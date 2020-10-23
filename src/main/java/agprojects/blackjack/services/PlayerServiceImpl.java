@@ -1,6 +1,6 @@
 package agprojects.blackjack.services;
 
-import agprojects.blackjack.exception.ApiRequestException;
+import agprojects.blackjack.exceptions.ApiRequestException;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.Table;
 import agprojects.blackjack.utilities.CustomModelMapper;

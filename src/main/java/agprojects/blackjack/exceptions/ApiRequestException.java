@@ -1,4 +1,4 @@
-package agprojects.blackjack.exception;
+package agprojects.blackjack.exceptions;
 
 public class ApiRequestException extends RuntimeException {
 
