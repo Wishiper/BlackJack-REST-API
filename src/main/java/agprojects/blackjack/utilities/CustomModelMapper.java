@@ -1,6 +1,7 @@
-package agprojects.blackjack.models.dto;
+package agprojects.blackjack.utilities;
 
 import agprojects.blackjack.models.Player;
+import agprojects.blackjack.models.dto.PlayerDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

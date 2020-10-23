@@ -1,8 +1,12 @@
 package agprojects.blackjack.models;
 
+import agprojects.blackjack.exception.ApiRequestException;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public final class Table {
 
     private final ArrayList<Seat> playerSeats;
@@ -20,9 +24,11 @@ public final class Table {
 
     public String sitPlayer(int seatNumber, Player player){
         if(this.playerSeats.get(seatNumber).isTaken()){
-            return "This seat is already taken";
+            throw  new ApiRequestException("This seat is already taken");
         }else {
-            this.playerSeats.get(seatNumber).setPlayer(player);
+            this.playerSeats.get(seatNumber).sitPlayer(player);
+            player.setSeatNumber(seatNumber);
+            playerSeats.get(seatNumber).setTaken(true);
             return "Player" + player.getName() + "has been seated successfully";
         }
     }

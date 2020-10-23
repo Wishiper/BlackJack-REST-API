@@ -17,7 +17,7 @@ public final class Seat {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    public void sitPlayer(Player player) {
         this.player = player;
     }
 

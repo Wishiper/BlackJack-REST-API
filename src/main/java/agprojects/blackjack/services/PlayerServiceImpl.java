@@ -2,7 +2,8 @@ package agprojects.blackjack.services;
 
 import agprojects.blackjack.exception.ApiRequestException;
 import agprojects.blackjack.models.Player;
-import agprojects.blackjack.models.dto.CustomModelMapper;
+import agprojects.blackjack.models.Table;
+import agprojects.blackjack.utilities.CustomModelMapper;
 import agprojects.blackjack.models.dto.PlayerDTO;
 import agprojects.blackjack.repositories.PlayerRepository;
 import agprojects.blackjack.services.base.PlayerService;
@@ -21,6 +22,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     CustomModelMapper modelMapper;
+
+    @Autowired
+    Table table;
 
     public static final String PLAYER_NOT_FOUND = "Player with id: %s was not found";
     /**
@@ -99,6 +103,20 @@ public class PlayerServiceImpl implements PlayerService {
         if(playerToBet.isPresent()){
             Player player = playerToBet.get();
             player.setBalance(playerBalance);
+            playerRepository.save(player);
+            return player;
+
+        }else{
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
+        }
+    }
+
+    @Override
+    public Player seatPlayer(int playerId, int playerSeat) {
+        Optional<Player> playerToBet = playerRepository.findById(playerId);
+        if(playerToBet.isPresent()){
+            Player player = playerToBet.get();
+            table.sitPlayer(playerSeat,player);
             playerRepository.save(player);
             return player;
 

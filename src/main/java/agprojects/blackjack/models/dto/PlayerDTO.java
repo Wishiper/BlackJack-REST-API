@@ -14,6 +14,7 @@ public class PlayerDTO {
     private int playerId;
     @NotBlank(message = "Player name cannot be empty")
     private String name;
+    private int seatNumber;
     private double balance;
     @Min(value = 2,message = "Bet value cannot be smaller than 2")
     private double bet;
@@ -33,6 +34,14 @@ public class PlayerDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
     public double getBalance() {

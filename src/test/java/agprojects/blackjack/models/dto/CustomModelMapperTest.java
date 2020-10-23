@@ -3,10 +3,8 @@ package agprojects.blackjack.models.dto;
 import agprojects.blackjack.models.Dealer;
 import agprojects.blackjack.models.Hand;
 import agprojects.blackjack.models.Player;
-import agprojects.blackjack.models.card.Card;
-import agprojects.blackjack.models.card.CardType;
+import agprojects.blackjack.utilities.CustomModelMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ class CustomModelMapperTest {
         playerDTO.setName("name");
         playerDTO.setBalance(100);
         playerDTO.setBet(50);
+        playerDTO.setSeatNumber(1);
         Hand hand = new Hand();
         hand.addCard(dealer.draw());
         hand.addCard(dealer.draw());
@@ -41,6 +40,7 @@ class CustomModelMapperTest {
         assertEquals(playerDTO.getName(),player.getName());
         assertEquals(playerDTO.getBalance(),player.getBalance());
         assertEquals(playerDTO.getBet(),player.getBet());
+        assertEquals(playerDTO.getSeatNumber(),player.getSeatNumber());
         assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(0).getType(), player.getHands().get(0).getCardsInHand().get(0).getType());
         assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(1).getType(), player.getHands().get(0).getCardsInHand().get(1).getType());
 
@@ -53,6 +53,7 @@ class CustomModelMapperTest {
         player.setName("name");
         player.setBalance(100);
         player.setBet(50);
+        player.setSeatNumber(1);
         Hand hand = new Hand();
         hand.addCard(dealer.draw());
         hand.addCard(dealer.draw());
@@ -65,6 +66,7 @@ class CustomModelMapperTest {
         assertEquals(player.getName(),playerDTO.getName());
         assertEquals(player.getBalance(),playerDTO.getBalance());
         assertEquals(player.getBet(),playerDTO.getBet());
+        assertEquals(player.getSeatNumber(),playerDTO.getSeatNumber());
         assertEquals(player.getHands().get(0).getCardsInHand().get(0).getType(), playerDTO.getHands().get(0).getCardsInHand().get(0).getType());
         assertEquals(player.getHands().get(0).getCardsInHand().get(1).getType(), playerDTO.getHands().get(0).getCardsInHand().get(1).getType());
     }

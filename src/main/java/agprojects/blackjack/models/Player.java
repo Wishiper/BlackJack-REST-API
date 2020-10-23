@@ -22,6 +22,9 @@ public class Player {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "seatNumber")
+    private int seatNumber;
+
     @Column(name = "balance")
     private double balance;
 
@@ -49,6 +52,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
     public double getBalance() {

@@ -1,7 +1,6 @@
 package agprojects.blackjack.controllers;
 
-import agprojects.blackjack.models.Player;
-import agprojects.blackjack.models.dto.CustomModelMapper;
+import agprojects.blackjack.utilities.CustomModelMapper;
 import agprojects.blackjack.models.dto.PlayerDTO;
 import agprojects.blackjack.services.PlayerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -53,6 +51,12 @@ public class PlayerController {
     @PutMapping("/{playerId}/balance/{playerBalance}")
     public ResponseEntity<PlayerDTO> addBalanceToPlayer(@PathVariable int playerId, @PathVariable double playerBalance) {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.addBalanceToPlayer(playerId,playerBalance));
+        return new ResponseEntity<>(playerDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/seat/{playerId}/{playerSeat}")
+    public ResponseEntity<PlayerDTO> sitPlayer(@PathVariable int playerId, @PathVariable int playerSeat) {
+        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.seatPlayer(playerId,playerSeat));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
 }

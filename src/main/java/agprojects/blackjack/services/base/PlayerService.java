@@ -20,6 +20,8 @@ public interface PlayerService {
 
     Player addBalanceToPlayer(int playerId, double playerBalance);
 
+    Player seatPlayer(int playerId, int playerSeat);
+
     void hit();
 
     void doubleDown();
@@ -27,6 +29,5 @@ public interface PlayerService {
     void stand ();
 
     void split ();
-
 
 }
