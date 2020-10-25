@@ -148,10 +148,21 @@ public class PlayerServiceImpl implements PlayerService {
         }
     }
 
+    //TODO validate player has enough balance to double
     @Override
-    public void doubleDown() {
+    public Player doubleDown(int playerId, int handId) {
+            Player player = isPlayerPresent(playerId);
+            player.setBalance(player.getBalance() - player.getBet());
+            player.setBet(player.getBet() * 2);
+            for (Hand hand : player.getHands()) {
+                if (handId == hand.getHandId()) {
+                    hand.addCard(dealer.draw());
+                }
+            }
+            playerRepository.save(player);
+            return player;
 
-    }
+        }
 
     @Override
     public void stand() {
@@ -160,6 +171,21 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void split() {
+
+    }
+
+    /**
+     * Checks if the player is present in the database, if not it throws an exception.
+     * @param playerId Id of the player.
+     * @return The player object found by playerId.
+     */
+    private Player isPlayerPresent(int playerId) {
+        Optional<Player> playerToBet = playerRepository.findById(playerId);
+        if(playerToBet.isPresent()){
+            return playerToBet.get();
+        }else{
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
+        }
 
     }
 }

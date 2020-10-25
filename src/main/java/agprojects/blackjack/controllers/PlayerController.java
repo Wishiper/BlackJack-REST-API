@@ -65,4 +65,11 @@ public class PlayerController {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.hit(playerId,handId));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
+
+    @PutMapping("/double/{playerId}/{handId}")
+    public ResponseEntity<PlayerDTO> doubleDownPlayer(@PathVariable int playerId, @PathVariable int handId) {
+        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.doubleDown(playerId,handId));
+        return new ResponseEntity<>(playerDTO, HttpStatus.OK);
+    }
+
 }

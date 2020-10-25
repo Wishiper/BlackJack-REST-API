@@ -24,7 +24,7 @@ public interface PlayerService {
 
     Player hit(int playerId, int handId);
 
-    void doubleDown();
+    Player doubleDown(int playerId, int handId);
 
     void stand ();
 
