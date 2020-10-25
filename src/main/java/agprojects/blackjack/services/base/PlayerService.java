@@ -22,7 +22,7 @@ public interface PlayerService {
 
     Player seatPlayer(int playerId, int playerSeat);
 
-    void hit();
+    Player hit(int playerId, int handId);
 
     void doubleDown();
 

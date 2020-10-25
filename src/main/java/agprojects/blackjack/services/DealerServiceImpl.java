@@ -4,7 +4,6 @@ import agprojects.blackjack.models.Dealer;
 import agprojects.blackjack.models.Hand;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.card.Card;
-import agprojects.blackjack.repositories.HandRepository;
 import agprojects.blackjack.repositories.PlayerRepository;
 import agprojects.blackjack.services.base.DealerService;
 import agprojects.blackjack.services.base.PlayerService;
@@ -31,8 +30,6 @@ public class DealerServiceImpl implements DealerService {
     @Autowired
     PlayerRepository playerRepository;
 
-    @Autowired
-    HandRepository handRepository;
 
     @Override
     public Map<String, Hand> deal() {

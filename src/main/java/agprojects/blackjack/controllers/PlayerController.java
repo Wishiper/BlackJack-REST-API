@@ -59,4 +59,10 @@ public class PlayerController {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.seatPlayer(playerId,playerSeat));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
+
+    @PutMapping("/hit/{playerId}/{handId}")
+    public ResponseEntity<PlayerDTO> hitPlayer(@PathVariable int playerId, @PathVariable int handId) {
+        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.hit(playerId,handId));
+        return new ResponseEntity<>(playerDTO, HttpStatus.OK);
+    }
 }

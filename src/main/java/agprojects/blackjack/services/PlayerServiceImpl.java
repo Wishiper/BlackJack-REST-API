@@ -1,6 +1,8 @@
 package agprojects.blackjack.services;
 
 import agprojects.blackjack.exceptions.ApiRequestException;
+import agprojects.blackjack.models.Dealer;
+import agprojects.blackjack.models.Hand;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.Table;
 import agprojects.blackjack.utilities.CustomModelMapper;
@@ -22,6 +24,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     CustomModelMapper modelMapper;
+
+    @Autowired
+    Dealer dealer;
 
     @Autowired
     Table table;
@@ -126,8 +131,21 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void hit() {
+    public Player hit(int playerId, int handId) {
+        Optional<Player> playerToBet = playerRepository.findById(playerId);
+        if(playerToBet.isPresent()){
+            Player player = playerToBet.get();
+            for (Hand hand :player.getHands()) {
+                if(handId == hand.getHandId()){
+                    hand.addCard(dealer.draw());
+                }
+            }
+            playerRepository.save(player);
+            return player;
 
+        }else{
+            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
+        }
     }
 
     @Override
