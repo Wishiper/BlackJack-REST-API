@@ -51,13 +51,7 @@ public class PlayerServiceImpl implements PlayerService {
      * @return Player object.
      */
     public Player getPlayerById(int playerId){
-        Optional<Player> playerOptional = playerRepository.findById(playerId);
-        if(playerOptional.isPresent()){
-            return playerOptional.get();
-        }else{
-
-            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
-        }
+            return isPlayerPresent(playerId);
     }
 
     @Override
@@ -82,18 +76,11 @@ public class PlayerServiceImpl implements PlayerService {
      */
     @Override
     public Player placeBet(int playerId, double playerBet) {
-
-        Optional<Player> playerToBet = playerRepository.findById(playerId);
-        if(playerToBet.isPresent()){
-            Player player = playerToBet.get();
-            player.setBet(playerBet);
-            player.setBalance(player.getBalance() - playerBet);
-            playerRepository.save(player);
-            return player;
-
-        }else{
-            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
-        }
+        Player player = isPlayerPresent(playerId);
+        player.setBet(playerBet);
+        player.setBalance(player.getBalance() - playerBet);
+        playerRepository.save(player);
+        return player;
     }
 
     /**
@@ -104,63 +91,45 @@ public class PlayerServiceImpl implements PlayerService {
      */
     @Override
     public Player addBalanceToPlayer(int playerId, double playerBalance) {
-        Optional<Player> playerToBet = playerRepository.findById(playerId);
-        if(playerToBet.isPresent()){
-            Player player = playerToBet.get();
-            player.setBalance(playerBalance);
-            playerRepository.save(player);
-            return player;
-
-        }else{
-            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
-        }
+        Player player = isPlayerPresent(playerId);
+        player.setBalance(playerBalance);
+        playerRepository.save(player);
+        return player;
     }
 
     @Override
     public Player seatPlayer(int playerId, int playerSeat) {
-        Optional<Player> playerToBet = playerRepository.findById(playerId);
-        if(playerToBet.isPresent()){
-            Player player = playerToBet.get();
-            table.sitPlayer(playerSeat,player);
-            playerRepository.save(player);
-            return player;
-
-        }else{
-            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
-        }
+        Player player = isPlayerPresent(playerId);
+        table.sitPlayer(playerSeat,player);
+        playerRepository.save(player);
+        return player;
     }
 
     @Override
     public Player hit(int playerId, int handId) {
-        Optional<Player> playerToBet = playerRepository.findById(playerId);
-        if(playerToBet.isPresent()){
-            Player player = playerToBet.get();
-            for (Hand hand :player.getHands()) {
+        Player player = isPlayerPresent(playerId);
+        for (Hand hand :player.getHands()) {
                 if(handId == hand.getHandId()){
                     hand.addCard(dealer.draw());
                 }
             }
-            playerRepository.save(player);
-            return player;
-
-        }else{
-            throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
-        }
+        playerRepository.save(player);
+        return player;
     }
 
     //TODO validate player has enough balance to double
     @Override
     public Player doubleDown(int playerId, int handId) {
-            Player player = isPlayerPresent(playerId);
-            player.setBalance(player.getBalance() - player.getBet());
-            player.setBet(player.getBet() * 2);
-            for (Hand hand : player.getHands()) {
+        Player player = isPlayerPresent(playerId);
+        player.setBalance(player.getBalance() - player.getBet());
+        player.setBet(player.getBet() * 2);
+        for (Hand hand : player.getHands()) {
                 if (handId == hand.getHandId()) {
                     hand.addCard(dealer.draw());
                 }
             }
-            playerRepository.save(player);
-            return player;
+        playerRepository.save(player);
+        return player;
 
         }
 
