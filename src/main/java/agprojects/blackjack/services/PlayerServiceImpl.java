@@ -112,6 +112,7 @@ public class PlayerServiceImpl implements PlayerService {
                 if(handId == hand.getHandId()){
                     hand.addCard(dealer.draw());
                 }
+                hand.evaluateHand();
             }
         playerRepository.save(player);
         return player;

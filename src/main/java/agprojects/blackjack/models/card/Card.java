@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 public final class Card implements Serializable {
 
+
     /**
      * The type of card (Rank and Suit).
      *
@@ -22,5 +23,21 @@ public final class Card implements Serializable {
 
     public CardType getType() {
         return type;
+    }
+
+    public int getRank() {
+        return type.getRank().getCardRank();
+    }
+
+    public String getSuit() {
+        return type.getSuit().getName();
+    }
+
+    public String getName() {
+        return type.toString();
+    }
+
+    public boolean isAce(){
+        return type.getRank().getCardRank() == 11;
     }
 }

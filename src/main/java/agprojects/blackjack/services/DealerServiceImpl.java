@@ -50,6 +50,7 @@ public class DealerServiceImpl implements DealerService {
             Card dealtCard = dealer.draw();
             dealer.getDealersHand().addCard(dealtCard);
             playerHands.put("Dealer", dealer.getDealersHand());
+            dealer.getDealersHand().evaluateHand();
         }
     }
 
@@ -69,6 +70,7 @@ public class DealerServiceImpl implements DealerService {
                 } else {
                     player.getHands().get(0).addCard(dealtCard);
                 }
+                player.getHands().get(0).evaluateHand();
                 playerHands.put(player.getName(), player.getHands().get(0));
                 playerRepository.save(player);
             }
