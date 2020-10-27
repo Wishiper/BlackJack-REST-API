@@ -7,7 +7,7 @@ import lombok.Getter;
  * This enum holds all the possible ranks that are in a deck of cards.
  */
 public enum Rank {
-    DEUCE(2),
+    TWO(2),
     THREE(3),
     FOUR(4),
     FIVE(5),

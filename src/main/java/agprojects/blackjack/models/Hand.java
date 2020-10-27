@@ -82,6 +82,12 @@ public final class Hand {
         int tempValue = evaluateTempHandValue();
         checkIfSplittable();
         boolean softAceUsed = false;
+
+        //This Adjusts the value of the soft Ace in cases where aces are more than two
+        if(numberOfAces>= 2){
+            tempValue+=10;
+        }
+        // This while makes every Ace value to 1 if over 21 else if under 21 - its a soft ace
         while (numberOfAces>0){
             if(tempValue>21){
                 tempValue -= 10;
@@ -91,16 +97,20 @@ public final class Hand {
                 break;
             }
         }
+        //Returns the normal value of the hand without if its under 21 or equal and there isn't a soft Ace
         if(tempValue <= 21 && !softAceUsed){
             handValue = Integer.toString(tempValue);
         }
+        // Returns the soft Ace value - 4/14 for example if cards are Ace and Three
         if(tempValue < 21 && softAceUsed){
             handValue = tempValue - 10 + "/" + tempValue;
         }
+        // If there is only two cards and tempValue is 21 then it is a BlackJack
         if(tempValue == 21 && cardsInHand.size() == 2){
             isBlackJack = true;
             handValue = tempValue + " - BlackJack";
         }
+        // If over 21 - Hand is a BUST
         else if (tempValue > 21){
             handValue = tempValue + " - Bust";
         }
@@ -127,54 +137,4 @@ public final class Hand {
             isSplitable = false;
         }
     }
-
-//    public void evaluateHand(){
-//        int tempValue = evaluateTempHandValue();
-//         checkIfSplittable();
-//        boolean softAceUsed = false;
-//        while (numberOfAces>0 && !softAceUsed){
-//            if(tempValue>21){
-//                tempValue -= 10;
-//                numberOfAces -= 1;
-//                softAceUsed = true;
-//            }else {
-//                break;
-//            }
-//        }
-//        if(tempValue < 21){
-//            handValue = Integer.toString(tempValue);
-//        }
-//        if(tempValue < 21 && numberOfAces == 1){
-//            handValue = tempValue - 10 + "/" + tempValue;
-//        }
-//        if(tempValue == 21){
-//            isBlackJack = true;
-//            handValue = tempValue + " - BlackJack";
-//        }
-//        else if (tempValue > 21){
-//            handValue = tempValue + " - Bust";
-//        }
-//    }
-//
-//    public int evaluateTempHandValue(){
-//        int tempHandValue = 0;
-//
-//        for (Card card: cardsInHand) {
-//            if(card.isAce()){
-//                numberOfAces++;
-//            }
-//            tempHandValue = tempHandValue + card.getRank();
-//        }
-//
-//
-//        return tempHandValue;
-//    }
-//
-//    public void checkIfSplittable(){
-//        if(cardsInHand.size()==2 && cardsInHand.get(0) != null && cardsInHand.get(1) != null){
-//            isSplitable = cardsInHand.get(0).getRank() == cardsInHand.get(1).getRank();
-//        }else if(cardsInHand.size()>2){
-//            isSplitable = false;
-//        }
-//    }
 }
