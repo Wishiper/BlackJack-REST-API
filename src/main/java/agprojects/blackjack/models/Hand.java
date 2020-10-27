@@ -7,6 +7,9 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a Hand in the BlackJack - could be a dealer or a player's hand.
+ */
 @Entity
 @Table(name = "hands")
 public final class Hand {
@@ -27,7 +30,7 @@ public final class Hand {
     private boolean isBlackJack = false;
 
     @Column(name = "isSplitable")
-    private boolean isSplitable = false;
+    private boolean isSplittable = false;
 
     @Column(name = "isBust")
     private boolean isBust = false;
@@ -53,6 +56,18 @@ public final class Hand {
         return cardsInHand;
     }
 
+    public boolean isBlackJack() {
+        return isBlackJack;
+    }
+
+    public boolean isSplittable(){
+        return isSplittable;
+    }
+
+    public boolean isBust() {
+        return isBust;
+    }
+
     /**
      * Adds a card to the Hand.
      * @param card Card object.
@@ -61,19 +76,9 @@ public final class Hand {
         cardsInHand.add(card);
     }
 
-    public boolean isBlackJack() {
-        return isBlackJack;
-    }
-
-    public boolean isSplitable(){
-        return isSplitable;
-    }
-
-    public boolean isBust() {
-        return isBust;
-    }
-
-
+    /**
+     * Evaluates hand value of the Hand, considering soft Aces and multiple Aces
+     */
     public void evaluateHand(){
         int tempValue = evaluateTempHandValue();
         checkIfSplittable();
@@ -113,6 +118,10 @@ public final class Hand {
         }
     }
 
+    /**
+     * Adds up all the hands values into a temporaryResult and counts the number of Aces
+     * @return Combined number of all cardsInHand values
+     */
     private int evaluateTempHandValue(){
         int tempHandValue = 0;
 
@@ -127,11 +136,14 @@ public final class Hand {
         return tempHandValue;
     }
 
+    /**
+     * Checks if the current Hand is splittable - true if first two cards are of same value
+     */
     private void checkIfSplittable(){
         if(cardsInHand.size()==2 && cardsInHand.get(0) != null && cardsInHand.get(1) != null){
-            isSplitable = cardsInHand.get(0).getRank() == cardsInHand.get(1).getRank();
+            isSplittable = cardsInHand.get(0).getRank() == cardsInHand.get(1).getRank();
         }else if(cardsInHand.size()>2){
-            isSplitable = false;
+            isSplittable = false;
         }
     }
 }

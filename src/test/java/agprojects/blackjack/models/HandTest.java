@@ -171,7 +171,7 @@ class HandTest {
 
 
         hand.evaluateHand();
-        assertTrue(hand.isSplitable());
+        assertTrue(hand.isSplittable());
 
     }
     @Test
@@ -182,7 +182,7 @@ class HandTest {
 
 
         hand.evaluateHand();
-        assertTrue(hand.isSplitable());
+        assertTrue(hand.isSplittable());
 
     }
 
