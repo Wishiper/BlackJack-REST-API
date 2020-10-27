@@ -17,7 +17,7 @@ public final class Dealer {
     /**
      * The dealers current hand in the BlackJack round.
      */
-    private final Hand dealersHand;
+    private Hand dealersHand;
 
     private boolean mustDraw = true;
 
@@ -41,6 +41,10 @@ public final class Dealer {
 
     public Hand getDealersHand() {
         return dealersHand;
+    }
+
+    public void setDealersHand(Hand dealersHand) {
+        this.dealersHand = dealersHand;
     }
 
     public boolean mustDraw() {
