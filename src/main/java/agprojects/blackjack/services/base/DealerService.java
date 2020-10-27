@@ -9,4 +9,6 @@ import java.util.Map;
 public interface DealerService {
 
     Map<String, Hand> deal();
+
+    Hand hitDealer();
 }

@@ -28,5 +28,10 @@ public class DealerController {
     public ResponseEntity<Integer> getNumberOfCards(){
        return new ResponseEntity<>(dealerService.getNumberOfCards(),HttpStatus.OK);
     }
+
+    @GetMapping("hit")
+    public ResponseEntity <Hand> hitDealer(){
+        return new ResponseEntity<>(dealerService.hitDealer(), HttpStatus.OK);
+    }
 }
 

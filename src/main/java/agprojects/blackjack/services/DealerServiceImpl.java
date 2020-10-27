@@ -78,6 +78,17 @@ public class DealerServiceImpl implements DealerService {
         }
     }
 
+    @Override
+    public Hand hitDealer() {
+            while(dealer.mustDraw()){
+                Card dealtCard = dealer.draw();
+                dealer.getDealersHand().addCard(dealtCard);
+                dealer.getDealersHand().evaluateHand();
+            }
+
+        return dealer.getDealersHand();
+    }
+
 
     /**
      * Gets the number of cards left in the deck of cards.

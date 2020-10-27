@@ -15,29 +15,25 @@ public final class Card implements Serializable {
      * @see CardType
      */
     @Enumerated(EnumType.STRING)
-    private final CardType type;
+    private final CardType name;
 
-    public Card(CardType type) {
-        this.type = type;
+    public Card(CardType name) {
+        this.name = name;
     }
 
-    public CardType getType() {
-        return type;
+    public CardType getName() {
+        return name;
     }
 
     public int getRank() {
-        return type.getRank().getCardRank();
+        return name.getRank().getCardRank();
     }
 
     public String getSuit() {
-        return type.getSuit().getName();
-    }
-
-    public String getName() {
-        return type.toString();
+        return name.getSuit().getName();
     }
 
     public boolean isAce(){
-        return type.getRank().getCardRank() == 11;
+        return name.getRank().getCardRank() == 11;
     }
 }

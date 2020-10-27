@@ -41,8 +41,8 @@ class CustomModelMapperTest {
         assertEquals(playerDTO.getBalance(),player.getBalance());
         assertEquals(playerDTO.getBet(),player.getBet());
         assertEquals(playerDTO.getSeatNumber(),player.getSeatNumber());
-        assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(0).getType(), player.getHands().get(0).getCardsInHand().get(0).getType());
-        assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(1).getType(), player.getHands().get(0).getCardsInHand().get(1).getType());
+        assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(0).getName(), player.getHands().get(0).getCardsInHand().get(0).getName());
+        assertEquals(playerDTO.getHands().get(0).getCardsInHand().get(1).getName(), player.getHands().get(0).getCardsInHand().get(1).getName());
 
     }
 
@@ -67,7 +67,7 @@ class CustomModelMapperTest {
         assertEquals(player.getBalance(),playerDTO.getBalance());
         assertEquals(player.getBet(),playerDTO.getBet());
         assertEquals(player.getSeatNumber(),playerDTO.getSeatNumber());
-        assertEquals(player.getHands().get(0).getCardsInHand().get(0).getType(), playerDTO.getHands().get(0).getCardsInHand().get(0).getType());
-        assertEquals(player.getHands().get(0).getCardsInHand().get(1).getType(), playerDTO.getHands().get(0).getCardsInHand().get(1).getType());
+        assertEquals(player.getHands().get(0).getCardsInHand().get(0).getName(), playerDTO.getHands().get(0).getCardsInHand().get(0).getName());
+        assertEquals(player.getHands().get(0).getCardsInHand().get(1).getName(), playerDTO.getHands().get(0).getCardsInHand().get(1).getName());
     }
 }

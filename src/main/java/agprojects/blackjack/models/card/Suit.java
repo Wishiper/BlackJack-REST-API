@@ -6,10 +6,10 @@ import lombok.Getter;
  */
 @Getter
 public enum Suit {
-    CLUBS("c"),
-    DIAMONDS("d"),
-    HEARTS("h"),
-    SPADES("s");
+    CLUBS("CLUBS"),
+    DIAMONDS("DIAMONDS"),
+    HEARTS("HEARTS"),
+    SPADES("SPADES");
 
     /**
      * Short string representation of the suit (one letter symbol).
