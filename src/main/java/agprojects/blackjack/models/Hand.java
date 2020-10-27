@@ -29,6 +29,9 @@ public final class Hand {
     @Column(name = "isSplitable")
     private boolean isSplitable = false;
 
+    @Column(name = "isBust")
+    private boolean isBust = false;
+
     @Column(name = "numberOfAces")
     private int numberOfAces = 0;
 
@@ -62,20 +65,13 @@ public final class Hand {
         return isBlackJack;
     }
 
-    public void setBlackJack(boolean blackJack) {
-        isBlackJack = blackJack;
-    }
-
     public boolean isSplitable(){
         return isSplitable;
     }
 
-    public void setSplitable(boolean splitable) {
-        isSplitable = splitable;
+    public boolean isBust() {
+        return isBust;
     }
-
-
-
 
 
     public void evaluateHand(){
@@ -112,11 +108,12 @@ public final class Hand {
         }
         // If over 21 - Hand is a BUST
         else if (tempValue > 21){
+            isBust = true;
             handValue = tempValue + " - Bust";
         }
     }
 
-    public int evaluateTempHandValue(){
+    private int evaluateTempHandValue(){
         int tempHandValue = 0;
 
         for (Card card: cardsInHand) {
@@ -130,7 +127,7 @@ public final class Hand {
         return tempHandValue;
     }
 
-    public void checkIfSplittable(){
+    private void checkIfSplittable(){
         if(cardsInHand.size()==2 && cardsInHand.get(0) != null && cardsInHand.get(1) != null){
             isSplitable = cardsInHand.get(0).getRank() == cardsInHand.get(1).getRank();
         }else if(cardsInHand.size()>2){

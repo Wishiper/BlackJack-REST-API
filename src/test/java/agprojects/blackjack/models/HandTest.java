@@ -59,10 +59,9 @@ class HandTest {
 
     }
     @Test
-    void evaluateHand_ShouldReturnSoft19_WithThreeThreeTwoAndAce() {
+    void evaluateHand_ShouldReturnSoft19_WithSixTwoAndAce() {
         Hand hand = new Hand();
-        hand.addCard(THREE);
-        hand.addCard(THREE);
+        hand.addCard(SIX);
         hand.addCard(TWO);
         hand.addCard(ACE);
 
@@ -138,6 +137,65 @@ class HandTest {
 
         hand.evaluateHand();
         assertEquals("15",hand.getHandValue());
+
+    }
+
+    @Test
+    void evaluateHand_ShouldReturn21_WithNineTwoAndTen() {
+        Hand hand = new Hand();
+        hand.addCard(NINE);
+        hand.addCard(TWO);
+        hand.addCard(TEN);
+
+
+        hand.evaluateHand();
+        assertEquals("21",hand.getHandValue());
+
+    }
+    @Test
+    void evaluateHand_ShouldSetIsBlackJackToTrue_WhenThereIsABlackJack() {
+        Hand hand = new Hand();
+        hand.addCard(TEN);
+        hand.addCard(ACE);
+
+
+        hand.evaluateHand();
+        assertTrue(hand.isBlackJack());
+
+    }
+    @Test
+    void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstAndSecondCardAreSameValue() {
+        Hand hand = new Hand();
+        hand.addCard(TEN);
+        hand.addCard(TEN);
+
+
+        hand.evaluateHand();
+        assertTrue(hand.isSplitable());
+
+    }
+    @Test
+    void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstTwoCardsAreAceAndAce() {
+        Hand hand = new Hand();
+        hand.addCard(ACE);
+        hand.addCard(ACE);
+
+
+        hand.evaluateHand();
+        assertTrue(hand.isSplitable());
+
+    }
+
+    @Test
+    void evaluateHand_ShouldSetIsBustToTrue_WhenOver22() {
+        Hand hand = new Hand();
+        hand.addCard(TEN);
+        hand.addCard(FIVE);
+        hand.addCard(SEVEN);
+
+
+        hand.evaluateHand();
+        assertTrue(hand.isBust());
 
     }
 
