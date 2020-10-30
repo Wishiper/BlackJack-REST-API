@@ -85,6 +85,44 @@
 					"response": []
 				},
 				{
+					"name": "Create Player RaicheX Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0bde9d61-eb82-4bad-815e-a9d300b2bbc0",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"playerId\": 3,\r\n    \"name\": \"RaicheB\",\r\n    \"hand\": null,\r\n    \"balance\": 0.0,\r\n    \"bet\": 0.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/players"
+					},
+					"response": []
+				},
+				{
 					"name": "Seat Player",
 					"event": [
 						{
@@ -228,17 +266,106 @@
 						"url": "http://localhost:8080/api/players/bet/1/50"
 					},
 					"response": []
+				},
+				{
+					"name": "HitPlayerByHandId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "270f970f-eb0d-46ba-84bd-6faa64b73a18",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/players/hit/1/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DoubleDown",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2e218e4-a901-45ec-bc5b-ed590a8a60a7",
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "http://localhost:8080/api/players/double/1/1",
+						"description": "DoubleDown a players hand by player id and player's hand id"
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Deal",
+			"name": "Deal Players",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "22e09250-f93b-44dc-99c0-e81c27011f5d",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.ok;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/dealer/deal",
+				"description": "Draw a card from the BJ Deck"
+			},
+			"response": []
+		},
+		{
+			"name": "Dealer Hit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48aeab4b-cfb0-477f-b369-f7cc012538f5",
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
