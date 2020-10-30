@@ -1,8 +1,6 @@
 package agprojects.blackjack.models.card;
 
 
-import lombok.Getter;
-
 /**
  * This enum holds all the possible ranks that are in a deck of cards.
  */

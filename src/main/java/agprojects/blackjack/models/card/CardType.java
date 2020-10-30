@@ -2,7 +2,6 @@ package agprojects.blackjack.models.card;
 
 import lombok.Getter;
 
-import javax.persistence.*;
 
 import static agprojects.blackjack.models.card.Rank.*;
 import static agprojects.blackjack.models.card.Suit.*;

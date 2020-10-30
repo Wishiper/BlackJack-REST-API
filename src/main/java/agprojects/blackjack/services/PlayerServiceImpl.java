@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service responsible for all actions regarding a Player in the game of BlackJack.
+ */
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
@@ -52,11 +55,6 @@ public class PlayerServiceImpl implements PlayerService {
      */
     public Player getPlayerById(int playerId){
             return isPlayerPresent(playerId);
-    }
-
-    @Override
-    public void deletePlayerByName(String playerName) {
-
     }
 
     /**

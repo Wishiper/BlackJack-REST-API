@@ -48,8 +48,4 @@ public final class Deck {
         return cards.size();
     }
 
-    public Stack<Card> getCards() {
-        return cards;
-    }
-
 }

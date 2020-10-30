@@ -12,8 +12,6 @@ public interface PlayerService {
 
     Player createNewPlayer(PlayerDTO player);
 
-    void deletePlayerByName(String playerName);
-
     List<Player> getAllPlayers();
 
     Player placeBet(int playerId, double playerBet);

@@ -29,10 +29,6 @@ public final class Card implements Serializable {
         return name.getRank().getCardRank();
     }
 
-    public String getSuit() {
-        return name.getSuit().getName();
-    }
-
     public boolean isAce(){
         return name.getRank().getCardRank() == 11;
     }
