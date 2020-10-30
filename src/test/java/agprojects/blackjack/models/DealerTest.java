@@ -24,10 +24,8 @@ class DealerTest {
     @Test
     void mustDraw_ShouldReturnTrue_OnSoft14() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(THREE,ACE);
 
-        hand.addCard(THREE);
-        hand.addCard(ACE);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
@@ -37,9 +35,8 @@ class DealerTest {
     @Test
     void mustDraw_ShouldReturnTrue_On10() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(TEN);
 
-        hand.addCard(TEN);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
@@ -49,49 +46,41 @@ class DealerTest {
     @Test
     void mustDraw_ShouldReturnFalse_OnSoft17() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(SIX,ACE);
 
-        hand.addCard(THREE);
-        hand.addCard(THREE);
-        hand.addCard(ACE);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
         assertFalse(dealer.mustDraw());
     }
+
     @Test
     void mustDraw_ShouldReturnFalse_OnSoft18() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(THREE,FOUR,ACE);
 
-        hand.addCard(THREE);
-        hand.addCard(FOUR);
-        hand.addCard(ACE);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
         assertFalse(dealer.mustDraw());
     }
+
     @Test
     void mustDraw_ShouldReturnFalse_OnSoft19() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(THREE,FIVE,ACE);
 
-        hand.addCard(THREE);
-        hand.addCard(FIVE);
-        hand.addCard(ACE);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
         assertFalse(dealer.mustDraw());
     }
+
     @Test
     void mustDraw_ShouldReturnFalse_OnSoft20() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(SEVEN,TWO,ACE);
 
-        hand.addCard(NINE);
-        hand.addCard(ACE);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
@@ -101,22 +90,19 @@ class DealerTest {
     @Test
     void mustDraw_ShouldReturnFalse_OnHard17() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(NINE,EIGHT);
 
-        hand.addCard(NINE);
-        hand.addCard(EIGHT);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
         assertFalse(dealer.mustDraw());
     }
+
     @Test
     void mustDraw_ShouldReturnFalse_OnHard21() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(NINE,EIGHT,FOUR);
 
-        hand.addCard(NINE);
-        hand.addCard(EIGHT);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 
@@ -126,10 +112,8 @@ class DealerTest {
     @Test
     void mustDraw_ShouldReturnFalse_OnBlackJack() {
         Dealer dealer = new Dealer();
-        Hand hand = new Hand();
+        Hand hand = new Hand(ACE,JACK);
 
-        hand.addCard(ACE);
-        hand.addCard(JACK);
         dealer.setDealersHand(hand);
         dealer.getDealersHand().evaluateHand();
 

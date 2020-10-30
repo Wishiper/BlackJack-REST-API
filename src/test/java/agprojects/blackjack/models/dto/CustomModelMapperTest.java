@@ -36,6 +36,7 @@ class CustomModelMapperTest {
 
 
         Player player = modelMapper.convertFromPlayerDTO(playerDTO);
+
         assertEquals(playerDTO.getPlayerId(),player.getPlayerId());
         assertEquals(playerDTO.getName(),player.getName());
         assertEquals(playerDTO.getBalance(),player.getBalance());
@@ -62,6 +63,7 @@ class CustomModelMapperTest {
         player.setHands(hands);
 
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(player);
+
         assertEquals(player.getPlayerId(),playerDTO.getPlayerId());
         assertEquals(player.getName(),playerDTO.getName());
         assertEquals(player.getBalance(),playerDTO.getBalance());

@@ -27,176 +27,136 @@ class HandTest {
 
     @Test
     void evaluateHand_ShouldReturnBLACKJACK_WithAceAndTEN() {
-        Hand hand = new Hand();
-        hand.addCard(ACE);
-        hand.addCard(TEN);
+        Hand hand = new Hand(ACE, TEN);
 
         hand.evaluateHand();
+
         assertEquals("21 - BlackJack",hand.getHandValue());
-
-
     }
+
     @Test
     void evaluateHand_ShouldReturnBLACKJACK_WithJACKAndAce() {
-        Hand hand = new Hand();
-        hand.addCard(JACK);
-        hand.addCard(ACE);
+        Hand hand = new Hand(JACK,ACE);
 
         hand.evaluateHand();
+
         assertEquals("21 - BlackJack",hand.getHandValue());
-
-
     }
+
     @Test
     void evaluateHand_ShouldReturnSoft14_WithAceAndTHREE() {
-        Hand hand = new Hand();
-        hand.addCard(ACE);
-        hand.addCard(THREE);
+        Hand hand = new Hand(ACE,THREE);
 
         hand.evaluateHand();
+
         assertEquals("4/14",hand.getHandValue());
-
-
     }
+
     @Test
     void evaluateHand_ShouldReturnSoft19_WithSixTwoAndAce() {
-        Hand hand = new Hand();
-        hand.addCard(SIX);
-        hand.addCard(TWO);
-        hand.addCard(ACE);
+        Hand hand = new Hand(SIX,TWO,ACE);
 
         hand.evaluateHand();
-        assertEquals("9/19",hand.getHandValue());
 
+        assertEquals("9/19",hand.getHandValue());
     }
 
     @Test
     void evaluateHand_ShouldReturnSoft20_WithNineAndAce() {
-        Hand hand = new Hand();
-        hand.addCard(NINE);
-        hand.addCard(ACE);
+        Hand hand = new Hand(NINE,ACE);
 
         hand.evaluateHand();
-        assertEquals("10/20",hand.getHandValue());
 
+        assertEquals("10/20",hand.getHandValue());
     }
 
     @Test
     void evaluateHand_ShouldReturn21_WithNineAndTwoAces() {
-        Hand hand = new Hand();
-        hand.addCard(NINE);
-        hand.addCard(ACE);
-        hand.addCard(ACE);
+        Hand hand = new Hand(NINE,ACE,ACE);
 
         hand.evaluateHand();
-        assertEquals("21",hand.getHandValue());
 
+        assertEquals("21",hand.getHandValue());
     }
+
     @Test
     void evaluateHand_ShouldReturn12_WithSevenFourAndAce() {
-        Hand hand = new Hand();
-        hand.addCard(SEVEN);
-        hand.addCard(FOUR);
-        hand.addCard(ACE);
+        Hand hand = new Hand(SEVEN,FOUR,ACE);
 
         hand.evaluateHand();
-        assertEquals("12",hand.getHandValue());
 
+        assertEquals("12",hand.getHandValue());
     }
+
     @Test
     void evaluateHand_ShouldReturnBUST_WithNineAndThreeAces_22() {
-        Hand hand = new Hand();
-        hand.addCard(NINE);
-        hand.addCard(ACE);
-        hand.addCard(ACE);
-        hand.addCard(ACE);
+        Hand hand = new Hand(NINE,ACE,ACE,ACE);
 
         hand.evaluateHand();
-        assertEquals("22 - Bust",hand.getHandValue());
 
+        assertEquals("22 - Bust",hand.getHandValue());
     }
 
     @Test
     void evaluateHand_ShouldReturnBUST_With22() {
-        Hand hand = new Hand();
-        hand.addCard(THREE);
-        hand.addCard(EIGHT);
-        hand.addCard(ACE);
-        hand.addCard(TEN);
+        Hand hand = new Hand(THREE,EIGHT,ACE,TEN);
 
         hand.evaluateHand();
-        assertEquals("22 - Bust",hand.getHandValue());
 
+        assertEquals("22 - Bust",hand.getHandValue());
     }
 
     @Test
     void evaluateHand_ShouldReturn15_WithTenAndFive() {
-        Hand hand = new Hand();
-        hand.addCard(TEN);
-        hand.addCard(FIVE);
+        Hand hand = new Hand(TEN,FIVE);
 
         hand.evaluateHand();
-        assertEquals("15",hand.getHandValue());
 
+        assertEquals("15",hand.getHandValue());
     }
 
     @Test
     void evaluateHand_ShouldReturn21_WithNineTwoAndTen() {
-        Hand hand = new Hand();
-        hand.addCard(NINE);
-        hand.addCard(TWO);
-        hand.addCard(TEN);
-
+        Hand hand = new Hand(NINE,TWO,TEN);
 
         hand.evaluateHand();
-        assertEquals("21",hand.getHandValue());
 
+        assertEquals("21",hand.getHandValue());
     }
+
     @Test
     void evaluateHand_ShouldSetIsBlackJackToTrue_WhenThereIsABlackJack() {
-        Hand hand = new Hand();
-        hand.addCard(TEN);
-        hand.addCard(ACE);
-
+        Hand hand = new Hand(TEN,ACE);
 
         hand.evaluateHand();
-        assertTrue(hand.isBlackJack());
 
+        assertTrue(hand.isBlackJack());
     }
+
     @Test
     void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstAndSecondCardAreSameValue() {
-        Hand hand = new Hand();
-        hand.addCard(TEN);
-        hand.addCard(TEN);
-
+        Hand hand = new Hand(TEN,TEN);
 
         hand.evaluateHand();
-        assertTrue(hand.isSplittable());
 
+        assertTrue(hand.isSplittable());
     }
     @Test
     void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstTwoCardsAreAceAndAce() {
-        Hand hand = new Hand();
-        hand.addCard(ACE);
-        hand.addCard(ACE);
-
+        Hand hand = new Hand(ACE,ACE);
 
         hand.evaluateHand();
-        assertTrue(hand.isSplittable());
 
+        assertTrue(hand.isSplittable());
     }
 
     @Test
     void evaluateHand_ShouldSetIsBustToTrue_WhenOver22() {
-        Hand hand = new Hand();
-        hand.addCard(TEN);
-        hand.addCard(FIVE);
-        hand.addCard(SEVEN);
-
+        Hand hand = new Hand(TEN,FIVE,SEVEN);
 
         hand.evaluateHand();
-        assertTrue(hand.isBust());
 
+        assertTrue(hand.isBust());
     }
 
 

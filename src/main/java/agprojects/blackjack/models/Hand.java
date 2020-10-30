@@ -5,6 +5,7 @@ import agprojects.blackjack.models.card.Card;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,6 +17,11 @@ public final class Hand {
 
     public Hand() {
         this.cardsInHand = new ArrayList<>();
+    }
+
+    public Hand(Card... cards){
+        this.cardsInHand = new ArrayList<>();
+        this.cardsInHand.addAll(Arrays.asList(cards));
     }
 
     @Id
