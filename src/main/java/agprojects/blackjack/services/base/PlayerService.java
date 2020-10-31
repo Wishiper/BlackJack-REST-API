@@ -24,8 +24,8 @@ public interface PlayerService {
 
     Player doubleDown(int playerId, int handId);
 
-    void stand ();
+    Player stand (int playerId, int handId);
 
-    void split ();
+    Player split (int playerId, int handId);
 
 }

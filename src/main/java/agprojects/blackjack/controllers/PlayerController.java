@@ -53,7 +53,7 @@ public class PlayerController {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.addBalanceToPlayer(playerId,playerBalance));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
-
+    //TODO refactor hit,stand,double,split,surrender into one endpoint
     @PutMapping("/seat/{playerId}/{playerSeat}")
     public ResponseEntity<PlayerDTO> sitPlayer(@PathVariable int playerId, @PathVariable int playerSeat) {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.seatPlayer(playerId,playerSeat));

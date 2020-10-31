@@ -41,6 +41,9 @@ public final class Hand {
     @Column(name = "isBust")
     private boolean isBust = false;
 
+    @Column(name = "isFinished")
+    private boolean isFinished = false;
+
     @Column(name = "numberOfAces")
     private int numberOfAces = 0;
 
@@ -72,6 +75,14 @@ public final class Hand {
 
     public boolean isBust() {
         return isBust;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     /**
@@ -115,11 +126,13 @@ public final class Hand {
         // If there is only two cards and tempValue is 21 then it is a BlackJack
         if(tempValue == 21 && cardsInHand.size() == 2){
             isBlackJack = true;
+            isFinished = true;
             handValue = tempValue + " - BlackJack";
         }
         // If over 21 - Hand is a BUST
         else if (tempValue > 21){
             isBust = true;
+            isFinished = true;
             handValue = tempValue + " - Bust";
         }
     }
@@ -151,5 +164,11 @@ public final class Hand {
         }else if(cardsInHand.size()>2){
             isSplittable = false;
         }
+    }
+
+    public Hand split() {
+        Card cardToSplit = this.cardsInHand.remove(1);
+        return new Hand(cardToSplit);
+
     }
 }

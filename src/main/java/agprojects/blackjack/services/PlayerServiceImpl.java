@@ -35,6 +35,11 @@ public class PlayerServiceImpl implements PlayerService {
     Table table;
 
     public static final String PLAYER_NOT_FOUND = "Player with id: %s was not found";
+
+    public static final String HAND_NOT_FOUND = "Hand with id: %s was not found";
+
+    public static final String HAND_NOT_SPLITTABLE = "Hand with id: %s is not Splittable";
+
     /**
      * Creates new player and save it into the database.
      * @param playerDTO PlayerDTO object.
@@ -106,40 +111,51 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player hit(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
-        for (Hand hand :player.getHands()) {
-                if(handId == hand.getHandId()){
-                    hand.addCard(dealer.draw());
-                }
-                hand.evaluateHand();
-            }
+        Hand hand = getHandByHandId(player,handId);
+        hand.addCard(dealer.draw());
+        hand.evaluateHand();
         playerRepository.save(player);
         return player;
     }
 
     //TODO validate player has enough balance to double
+    //TODO Extract the hand logic into handService.
     @Override
     public Player doubleDown(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
         player.setBalance(player.getBalance() - player.getBet());
         player.setBet(player.getBet() * 2);
-        for (Hand hand : player.getHands()) {
-                if (handId == hand.getHandId()) {
-                    hand.addCard(dealer.draw());
-                }
-            }
+        Hand hand = getHandByHandId(player,handId);
+        hand.addCard(dealer.draw());
+        hand.evaluateHand();
+        hand.setFinished(true);
         playerRepository.save(player);
         return player;
 
         }
 
     @Override
-    public void stand() {
+    public Player stand(int playerId, int handId) {
+        Player player = isPlayerPresent(playerId);
+        Hand hand = getHandByHandId(player,handId);
+        hand.setFinished(true);
+        playerRepository.save(player);
 
+        return player;
     }
 
     @Override
-    public void split() {
+    public Player split(int playerId, int handId) {
+        Player player = isPlayerPresent(playerId);
+        Hand hand = getHandByHandId(player,handId);
+        if(hand.isSplittable()){
+           player.getHands().add(hand.split());
+            playerRepository.save(player);
+            return player;
+        }else {
+            throw new ApiRequestException(String.format(HAND_NOT_SPLITTABLE,playerId));
 
+        }
     }
 
     /**
@@ -155,5 +171,14 @@ public class PlayerServiceImpl implements PlayerService {
             throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
         }
 
+    }
+
+    private Hand getHandByHandId(Player player, int handId){
+        for (Hand hand : player.getHands()) {
+            if (handId == hand.getHandId()) {
+                return hand;
+            }
+        }
+        throw new ApiRequestException(String.format(HAND_NOT_FOUND,handId));
     }
 }
