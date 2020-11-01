@@ -2,9 +2,9 @@ package agprojects.blackjack.services;
 
 import agprojects.blackjack.exceptions.ApiRequestException;
 import agprojects.blackjack.models.Dealer;
-import agprojects.blackjack.models.Hand;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.Table;
+import agprojects.blackjack.services.base.HandService;
 import agprojects.blackjack.utilities.CustomModelMapper;
 import agprojects.blackjack.models.dto.PlayerDTO;
 import agprojects.blackjack.repositories.PlayerRepository;
@@ -24,6 +24,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
+
+    @Autowired
+    HandService handService;
 
     @Autowired
     CustomModelMapper modelMapper;
@@ -111,34 +114,30 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player hit(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
-        Hand hand = getHandByHandId(player,handId);
-        hand.addCard(dealer.draw());
-        hand.evaluateHand();
+
+        handService.hit(player,handId);
         playerRepository.save(player);
         return player;
     }
 
     //TODO validate player has enough balance to double
-    //TODO Extract the hand logic into handService.
     @Override
     public Player doubleDown(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
         player.setBalance(player.getBalance() - player.getBet());
         player.setBet(player.getBet() * 2);
-        Hand hand = getHandByHandId(player,handId);
-        hand.addCard(dealer.draw());
-        hand.evaluateHand();
-        hand.setFinished(true);
-        playerRepository.save(player);
-        return player;
 
+        handService.doubleDown(player,handId);
+        playerRepository.save(player);
+
+        return player;
         }
 
     @Override
     public Player stand(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
-        Hand hand = getHandByHandId(player,handId);
-        hand.setFinished(true);
+
+        handService.stand(player,handId);
         playerRepository.save(player);
 
         return player;
@@ -147,15 +146,19 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player split(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
-        Hand hand = getHandByHandId(player,handId);
-        if(hand.isSplittable()){
-           player.getHands().add(hand.split());
-            playerRepository.save(player);
-            return player;
-        }else {
-            throw new ApiRequestException(String.format(HAND_NOT_SPLITTABLE,playerId));
+        handService.split(player,handId);
+        playerRepository.save(player);
 
-        }
+        return player;
+    }
+
+    @Override
+    public Player surrender(int playerId, int handId) {
+        Player player = isPlayerPresent(playerId);
+        handService.surrender(player,handId);
+        playerRepository.save(player);
+
+        return player;
     }
 
     /**
@@ -171,14 +174,5 @@ public class PlayerServiceImpl implements PlayerService {
             throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
         }
 
-    }
-
-    private Hand getHandByHandId(Player player, int handId){
-        for (Hand hand : player.getHands()) {
-            if (handId == hand.getHandId()) {
-                return hand;
-            }
-        }
-        throw new ApiRequestException(String.format(HAND_NOT_FOUND,handId));
     }
 }

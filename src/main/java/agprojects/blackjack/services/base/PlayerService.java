@@ -28,4 +28,6 @@ public interface PlayerService {
 
     Player split (int playerId, int handId);
 
+    Player surrender (int playerId, int handId);
+
 }
