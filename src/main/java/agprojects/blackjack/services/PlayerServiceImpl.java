@@ -39,9 +39,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     public static final String PLAYER_NOT_FOUND = "Player with id: %s was not found";
 
-    public static final String HAND_NOT_FOUND = "Hand with id: %s was not found";
-
-    public static final String HAND_NOT_SPLITTABLE = "Hand with id: %s is not Splittable";
+    public static final String ACTION_NOT_ALLOWED = "Action with name: %s is not allowed";
 
     /**
      * Creates new player and save it into the database.
@@ -174,5 +172,16 @@ public class PlayerServiceImpl implements PlayerService {
             throw new ApiRequestException(String.format(PLAYER_NOT_FOUND,playerId));
         }
 
+    }
+
+    public Player executeAction(String action, int playerId, int handId){
+        switch (action){
+            case "hit" : return hit(playerId,handId);
+            case "double" : return doubleDown(playerId,handId);
+            case "split" : return split(playerId,handId);
+            case "stand" : return stand(playerId,handId);
+            case "surrender" : return surrender(playerId,handId);
+            default: throw new ApiRequestException(String.format(ACTION_NOT_ALLOWED,action));
+        }
     }
 }

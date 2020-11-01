@@ -13,6 +13,8 @@ public class HandServiceImpl implements HandService {
 
     public static final String HAND_NOT_FOUND = "Hand with id: %s was not found";
 
+    public static final String HAND_IS_FINISHED = "Hand with id: %s is already finished";
+
     public static final String HAND_NOT_SPLITTABLE = "Hand with id: %s is not Splittable";
 
 
@@ -62,6 +64,9 @@ public class HandServiceImpl implements HandService {
     private Hand getHandByHandId(Player player, int handId){
         for (Hand hand : player.getHands()) {
             if (handId == hand.getHandId()) {
+                if(hand.isFinished()){
+                    throw new ApiRequestException(String.format(HAND_IS_FINISHED, handId));
+                }
                 return hand;
             }
         }

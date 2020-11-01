@@ -53,22 +53,16 @@ public class PlayerController {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.addBalanceToPlayer(playerId,playerBalance));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
-    //TODO refactor hit,stand,double,split,surrender into one endpoint
+
     @PutMapping("/seat/{playerId}/{playerSeat}")
     public ResponseEntity<PlayerDTO> sitPlayer(@PathVariable int playerId, @PathVariable int playerSeat) {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.seatPlayer(playerId,playerSeat));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
 
-    @PutMapping("/hit/{playerId}/{handId}")
-    public ResponseEntity<PlayerDTO> hitPlayer(@PathVariable int playerId, @PathVariable int handId) {
-        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.hit(playerId,handId));
-        return new ResponseEntity<>(playerDTO, HttpStatus.OK);
-    }
-
-    @PutMapping("/double/{playerId}/{handId}")
-    public ResponseEntity<PlayerDTO> doubleDownPlayer(@PathVariable int playerId, @PathVariable int handId) {
-        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.doubleDown(playerId,handId));
+    @PutMapping("/{action}/{playerId}/{handId}")
+    public ResponseEntity<PlayerDTO> executePlayerAction(@PathVariable String action, @PathVariable int playerId, @PathVariable int handId) {
+        PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.executeAction(action,playerId,handId));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }
 
