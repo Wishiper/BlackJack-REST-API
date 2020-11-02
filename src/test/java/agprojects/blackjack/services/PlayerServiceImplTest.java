@@ -7,12 +7,11 @@ import agprojects.blackjack.models.dto.PlayerDTO;
 import agprojects.blackjack.repositories.PlayerRepository;
 import agprojects.blackjack.services.base.HandService;
 import agprojects.blackjack.utilities.CustomModelMapper;
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -41,7 +40,7 @@ class PlayerServiceImplTest {
     Table table;
 
     @InjectMocks
-    private static PlayerServiceImpl playerService = new PlayerServiceImpl();
+    private static final PlayerServiceImpl playerService = new PlayerServiceImpl();
 
     @Before
     public void createMocks() {
@@ -85,9 +84,7 @@ class PlayerServiceImplTest {
 
         when(playerRepository.findById(playerId)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(ApiRequestException.class, () -> {
-            playerService.getPlayerById(playerId);
-        });
+        Exception exception = assertThrows(ApiRequestException.class, () -> playerService.getPlayerById(playerId));
 
         String expectedMessage = "Player with id: 1 was not found";
         String actualMessage = exception.getMessage();
@@ -96,7 +93,12 @@ class PlayerServiceImplTest {
     }
 
     @Test
-    void getAllPlayers() {
+    void getAllPlayers_ShouldCallPlayerRepositoryFindAllOnce() {
+        when(playerRepository.findAll()).thenReturn(Lists.emptyList());
+
+        playerService.getAllPlayers();
+
+        verify(playerRepository,times(1)).findAll();
     }
 
     @Test
@@ -112,23 +114,84 @@ class PlayerServiceImplTest {
     }
 
     @Test
-    void hit() {
+    void hit_ShouldCallHandServiceHitAndPlayerRepositorySaveOnce_WithTheCorrectPlayer() {
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.hit(playerId,handId);
+
+        verify(handService,times(1)).hit(player,handId);
+        verify(playerRepository,times(1)).save(player);
+
     }
 
     @Test
-    void doubleDown() {
+    void doubleDownShouldCallHandServiceDoubleAndPlayerRepositorySaveOnce_WithTheCorrectPlayer() {
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.doubleDown(playerId,handId);
+
+        verify(handService,times(1)).doubleDown(player,handId);
+        verify(playerRepository,times(1)).save(player);
     }
 
     @Test
-    void stand() {
+    void stand_ShouldCallHandServiceStandAndPlayerRepositorySaveOnce_WithTheCorrectPlayer() {
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.stand(playerId,handId);
+
+        verify(handService,times(1)).stand(player,handId);
+        verify(playerRepository,times(1)).save(player);
     }
 
     @Test
-    void split() {
+    void split_ShouldCallHandServiceSplitAndPlayerRepositorySaveOnce_WithTheCorrectPlayer() {
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.split(playerId,handId);
+
+        verify(handService,times(1)).split(player,handId);
+        verify(playerRepository,times(1)).save(player);
     }
 
     @Test
-    void surrender() {
+    void surrender_ShouldCallHandServiceSurrenderAndPlayerRepositorySaveOnce_WithTheCorrectPlayer() {
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.surrender(playerId,handId);
+
+        verify(handService,times(1)).surrender(player,handId);
+        verify(playerRepository,times(1)).save(player);
     }
 
     @Test

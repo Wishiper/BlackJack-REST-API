@@ -115,12 +115,9 @@ public class PlayerServiceImpl implements PlayerService {
         return player;
     }
 
-    //TODO validate player has enough balance to double
     @Override
     public Player doubleDown(int playerId, int handId) {
         Player player = isPlayerPresent(playerId);
-        player.setBalance(player.getBalance() - player.getBet());
-        player.setBet(player.getBet() * 2);
 
         handService.doubleDown(player,handId);
         playerRepository.save(player);

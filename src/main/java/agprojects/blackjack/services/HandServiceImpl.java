@@ -27,9 +27,11 @@ public class HandServiceImpl implements HandService {
         hand.addCard(dealer.draw());
         hand.evaluateHand();
     }
-
+    //TODO validate player has enough balance to double
     @Override
     public void doubleDown(Player player, int handId) {
+        player.setBalance(player.getBalance() - player.getBet());
+        player.setBet(player.getBet() * 2);
         Hand hand = getHandByHandId(player,handId);
         hand.addCard(dealer.draw());
         hand.evaluateHand();
