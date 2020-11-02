@@ -7,6 +7,7 @@ import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.card.Card;
 import agprojects.blackjack.models.card.CardType;
 import org.junit.Before;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,16 +25,9 @@ import static org.mockito.Mockito.*;
 class HandServiceImplTest {
 
     Card ACE = new Card(CardType.valueOf("ACE_OF_CLUBS"));
-    Card TWO = new Card(CardType.valueOf("TWO_OF_CLUBS"));
-    Card THREE = new Card(CardType.valueOf("THREE_OF_CLUBS"));
-    Card FOUR = new Card(CardType.valueOf("FOUR_OF_CLUBS"));
     Card FIVE = new Card(CardType.valueOf("FIVE_OF_CLUBS"));
     Card SIX = new Card(CardType.valueOf("SIX_OF_CLUBS"));
-    Card SEVEN = new Card(CardType.valueOf("SEVEN_OF_CLUBS"));
-    Card EIGHT = new Card(CardType.valueOf("EIGHT_OF_CLUBS"));
-    Card NINE = new Card(CardType.valueOf("NINE_OF_CLUBS"));
     Card TEN = new Card(CardType.valueOf("TEN_OF_CLUBS"));
-    Card JACK = new Card(CardType.valueOf("JACK_OF_CLUBS"));
 
     @Mock
     Dealer dealer;
@@ -47,6 +41,7 @@ class HandServiceImplTest {
     }
 
     @Test
+    @DisplayName("Hit should work properly when hand is not finished")
     void hit_ShouldDrawTheCorrectCardWhenCalled_WhenHandIsFinishedFalse() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
@@ -67,6 +62,7 @@ class HandServiceImplTest {
     }
 
     @Test
+    @DisplayName("Hit should throw exception if hand is finished")
     void hit_ShouldThrowHAND_IS_FINISHED_WhenHandIsFinishedTrue() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
@@ -89,6 +85,7 @@ class HandServiceImplTest {
     }
 
     @Test
+    @DisplayName("Hit should throw exception if hand is not found")
     void hit_ShouldThrowHAND_NOT_FOUND_WhenHandIsNotFound() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
@@ -110,15 +107,16 @@ class HandServiceImplTest {
 
     }
 
-    @Test
-    void doubleDown() {
-    }
+//    @Test
+//    void doubleDown() {
+//    }
+//
+//    @Test
+//    void split() {
+//    }
 
     @Test
-    void split() {
-    }
-
-    @Test
+    @DisplayName("Surrender should mark the hand as finished and adjust player's balance")
     void surrender_ShouldSetHandIsFinishedToTrueAndReturnHalfTheBetToPlayersBalance() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
@@ -141,6 +139,7 @@ class HandServiceImplTest {
     }
 
     @Test
+    @DisplayName("Surrender is not allowed against an Ace")
     void surrender_ShouldThrowCANNOT_SURRENDER_AGAINST_ACE_WhenDealersFirstCardIsAnAce() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
@@ -166,6 +165,7 @@ class HandServiceImplTest {
     }
 
     @Test
+    @DisplayName("Stand should mark the hand as finished")
     void stand_ShouldSetHandIsFinishedToTrue_WhenCalled() {
         int handId = 1;
         Hand hand = new Hand(TEN,FIVE);
