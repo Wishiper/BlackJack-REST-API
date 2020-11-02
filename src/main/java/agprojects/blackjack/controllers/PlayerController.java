@@ -49,7 +49,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{playerId}/balance/{playerBalance}")
-    public ResponseEntity<PlayerDTO> addBalanceToPlayer(@PathVariable int playerId, @PathVariable double playerBalance) {
+    public ResponseEntity<PlayerDTO> addBalanceToPlayer(@PathVariable int playerId, @PathVariable int playerBalance) {
         PlayerDTO playerDTO = modelMapper.convertFromPlayer(playerService.addBalanceToPlayer(playerId,playerBalance));
         return new ResponseEntity<>(playerDTO, HttpStatus.OK);
     }

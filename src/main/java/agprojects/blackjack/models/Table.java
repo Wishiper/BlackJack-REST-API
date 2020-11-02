@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public final class Table {
+public class Table {
 
     private final ArrayList<Seat> playerSeats;
 
@@ -29,7 +29,7 @@ public final class Table {
             this.playerSeats.get(seatNumber).sitPlayer(player);
             player.setSeatNumber(seatNumber);
             playerSeats.get(seatNumber).setTaken(true);
-            return "Player" + player.getName() + "has been seated successfully";
+            return "Player " + player.getName() + " has been seated successfully";
         }
     }
 

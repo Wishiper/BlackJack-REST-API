@@ -40,6 +40,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     public static final String NOT_ENOUGH_BALANCE = "Player balance is not enough for player with id: %s";
 
+    public static final String CANNOT_ADD_NEGATIVE_BALANCE = "Negative balance cannot be added: %s";
+
     /**
      * Creates new player and save it into the database.
      * @param playerDTO PlayerDTO object.
@@ -93,14 +95,18 @@ public class PlayerServiceImpl implements PlayerService {
     /**
      * Add balance to a player by their playerId
      * @param playerId  Id of the betting player
-     * @param playerBalance The amount of balance the player inserted
+     * @param playerBalanceToAdd The amount of balance the player inserted
      * @return Updated player object
      */
     @Override
-    public Player addBalanceToPlayer(int playerId, double playerBalance) {
+    public Player addBalanceToPlayer(int playerId, int playerBalanceToAdd) {
         Player player = isPlayerPresent(playerId);
-        player.setBalance(playerBalance);
-        playerRepository.save(player);
+        if(playerBalanceToAdd<0){
+            throw new ApiRequestException(String.format(CANNOT_ADD_NEGATIVE_BALANCE,playerBalanceToAdd));
+        }else {
+            player.setBalance(player.getBalance() + playerBalanceToAdd);
+            playerRepository.save(player);
+        }
         return player;
     }
 

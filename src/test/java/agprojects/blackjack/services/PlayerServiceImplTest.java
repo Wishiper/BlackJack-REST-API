@@ -36,7 +36,7 @@ class PlayerServiceImplTest {
     @Mock
     HandService handService;
 
-    @InjectMocks
+    @Mock
     Table table;
 
     @InjectMocks
@@ -139,11 +139,59 @@ class PlayerServiceImplTest {
     }
 
     @Test
-    void addBalanceToPlayer() {
+    void addBalanceToPlayer_ShouldAddTheCorrectValueToPlayerBalance() {
+
+        int playerBalance = 100;
+        int playerCurrentBalance = 50;
+        int playerId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(playerCurrentBalance);
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        Player resultPlayer = playerService.addBalanceToPlayer(playerId,playerBalance);
+
+        verify(playerRepository,times(1)).save(player);
+        assertEquals(playerCurrentBalance+playerBalance,resultPlayer.getBalance());
+    }
+
+    @Test
+    void addBalanceToPlayer_ShouldThrowCANNOT_ADD_NEGATIVE_BALANCE_WhenBalanceToAddIsNegativeNumber() {
+
+        int playerBalanceToAdd = -100;
+        int playerCurrentBalance = 50;
+        int playerId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(playerCurrentBalance);
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+        Exception exception = assertThrows(ApiRequestException.class, () -> playerService.addBalanceToPlayer(playerId,playerBalanceToAdd));
+
+        String expectedMessage = String.format(PlayerServiceImpl.CANNOT_ADD_NEGATIVE_BALANCE,playerBalanceToAdd);
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
     void seatPlayer() {
+        int playerId = 1;
+        int playerSeat = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+        when(table.sitPlayer(playerSeat,player)).thenReturn("Player " + player.getName() + " has been seated successfully");
+
+        playerService.seatPlayer(playerId,playerSeat);
+
+        verify(table,times(1)).sitPlayer(playerSeat,player);
+        verify(playerRepository,times(1)).save(player);
     }
 
     @Test

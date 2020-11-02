@@ -16,7 +16,7 @@ public interface PlayerService {
 
     Player placeBet(int playerId, double playerBet);
 
-    Player addBalanceToPlayer(int playerId, double playerBalance);
+    Player addBalanceToPlayer(int playerId, int playerBalanceToAdd);
 
     Player seatPlayer(int playerId, int playerSeat);
 
