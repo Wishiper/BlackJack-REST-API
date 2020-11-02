@@ -57,6 +57,10 @@ public final class Hand {
         return handId;
     }
 
+    public void setHandId(int handId) {
+        this.handId = handId;
+    }
+
     public String getHandValue() {
         return handValue;
     }

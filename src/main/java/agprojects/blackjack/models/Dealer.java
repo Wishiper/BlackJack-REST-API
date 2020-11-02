@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * This class represents the dealer in BlackJack.
  */
 @Component
-public final class Dealer {
+public class Dealer {
 
     /**
      * The dealers deck which consists of 312 cards (6 decks)
