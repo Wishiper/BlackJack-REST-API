@@ -32,7 +32,7 @@ public final class Hand {
     @Column(name = "handValue")
     private String handValue;
 
-    @Column(name = "handId")
+    @Column(name = "handBet")
     private double handBet;
 
     @Column(name = "isBlackJack")
