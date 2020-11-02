@@ -32,6 +32,9 @@ public final class Hand {
     @Column(name = "handValue")
     private String handValue;
 
+    @Column(name = "handId")
+    private double handBet;
+
     @Column(name = "isBlackJack")
     private boolean isBlackJack = false;
 
@@ -63,6 +66,14 @@ public final class Hand {
 
     public String getHandValue() {
         return handValue;
+    }
+
+    public double getHandBet() {
+        return handBet;
+    }
+
+    public void setHandBet(double handBet) {
+        this.handBet = handBet;
     }
 
     public List<Card> getCardsInHand() {

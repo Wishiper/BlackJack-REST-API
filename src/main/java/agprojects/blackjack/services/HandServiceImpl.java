@@ -17,6 +17,10 @@ public class HandServiceImpl implements HandService {
 
     public static final String HAND_NOT_SPLITTABLE = "Hand with id: %s is not Splittable";
 
+    public static final String PLAYER_BALANCE_NOT_ENOUGH = "Player balance is not enough to double";
+
+    public static final String CANNOT_SURRENDER_AGAINST_ACE = "You cannot surrender hands when dealer's first card is an Ace";
+
 
     @Autowired
     Dealer dealer;
@@ -27,15 +31,18 @@ public class HandServiceImpl implements HandService {
         hand.addCard(dealer.draw());
         hand.evaluateHand();
     }
-    //TODO validate player has enough balance to double
     @Override
     public void doubleDown(Player player, int handId) {
-        player.setBalance(player.getBalance() - player.getBet());
-        player.setBet(player.getBet() * 2);
         Hand hand = getHandByHandId(player,handId);
-        hand.addCard(dealer.draw());
-        hand.evaluateHand();
-        hand.setFinished(true);
+        if(player.getBalance() >= hand.getHandBet()) {
+            player.setBalance(player.getBalance() - hand.getHandBet());
+            player.setBet(player.getBet() + hand.getHandBet());
+            hand.addCard(dealer.draw());
+            hand.evaluateHand();
+            hand.setFinished(true);
+        }else{
+            throw new ApiRequestException(PLAYER_BALANCE_NOT_ENOUGH);
+        }
     }
 
     @Override
@@ -52,8 +59,12 @@ public class HandServiceImpl implements HandService {
     @Override
     public void surrender(Player player, int handId) {
         Hand hand = getHandByHandId(player,handId);
-        player.setBalance(player.getBet()/2);
-        hand.setFinished(true);
+        if(dealer.getDealersHand().getCardsInHand().get(0).getRank()!=11){
+            player.setBalance(player.getBalance() + (player.getBet()/2));
+            hand.setFinished(true);
+        }else{
+            throw new ApiRequestException(CANNOT_SURRENDER_AGAINST_ACE);
+        }
 
     }
 

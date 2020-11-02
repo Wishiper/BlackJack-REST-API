@@ -65,6 +65,7 @@ public class DealerServiceImpl implements DealerService {
                 Card dealtCard = dealer.draw();
                 if (player.getHands().isEmpty()) {
                     Hand playerHand = new Hand();
+                    playerHand.setHandBet(player.getBet());
                     playerHand.addCard(dealtCard);
                     player.getHands().add(playerHand);
                 } else {

@@ -119,10 +119,66 @@ class HandServiceImplTest {
     }
 
     @Test
-    void surrender() {
+    void surrender_ShouldSetHandIsFinishedToTrueAndReturnHalfTheBetToPlayersBalance() {
+        int handId = 1;
+        Hand hand = new Hand(TEN,FIVE);
+        Hand dealersHand = new Hand(TEN,FIVE);
+        hand.setHandId(handId);
+        List<Hand> handList = new ArrayList<>();
+        handList.add(hand);
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(100);
+        player.setBet(50);
+        player.setHands(handList);
+
+        when(dealer.getDealersHand()).thenReturn(dealersHand);
+        handService.surrender(player,handId);
+
+        assertTrue(player.getHands().get(0).isFinished());
+        assertEquals(125,player.getBalance());
     }
 
     @Test
-    void stand() {
+    void surrender_ShouldThrowCANNOT_SURRENDER_AGAINST_ACE_WhenDealersFirstCardIsAnAce() {
+        int handId = 1;
+        Hand hand = new Hand(TEN,FIVE);
+        Hand dealersHand = new Hand(ACE);
+        hand.setHandId(handId);
+        List<Hand> handList = new ArrayList<>();
+        handList.add(hand);
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(100);
+        player.setBet(50);
+        player.setHands(handList);
+
+        when(dealer.getDealersHand()).thenReturn(dealersHand);
+
+        Exception exception = assertThrows(ApiRequestException.class, () -> handService.surrender(player,handId));
+
+        String expectedMessage = HandServiceImpl.CANNOT_SURRENDER_AGAINST_ACE;
+        String actualMessage = exception.getMessage();
+
+        assertTrue(expectedMessage.contains(actualMessage));
+    }
+
+    @Test
+    void stand_ShouldSetHandIsFinishedToTrue_WhenCalled() {
+        int handId = 1;
+        Hand hand = new Hand(TEN,FIVE);
+        hand.setHandId(handId);
+        List<Hand> handList = new ArrayList<>();
+        handList.add(hand);
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setHands(handList);
+
+        handService.stand(player,handId);
+
+        assertTrue(player.getHands().get(0).isFinished());
     }
 }
