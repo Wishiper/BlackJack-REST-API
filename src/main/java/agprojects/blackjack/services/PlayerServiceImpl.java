@@ -1,7 +1,6 @@
 package agprojects.blackjack.services;
 
 import agprojects.blackjack.exceptions.ApiRequestException;
-import agprojects.blackjack.models.Dealer;
 import agprojects.blackjack.models.Player;
 import agprojects.blackjack.models.Table;
 import agprojects.blackjack.services.base.HandService;
@@ -31,8 +30,6 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     CustomModelMapper modelMapper;
 
-    @Autowired
-    Dealer dealer;
 
     @Autowired
     Table table;

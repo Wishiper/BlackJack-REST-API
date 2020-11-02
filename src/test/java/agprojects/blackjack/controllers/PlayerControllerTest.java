@@ -47,14 +47,20 @@ class PlayerControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(playerDTO);
 
-        mockMvc.perform(post("/api/players").contentType(MediaType.APPLICATION_JSON).content(json).characterEncoding("utf-8"))
-                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/players").contentType(MediaType.APPLICATION_JSON)
+                .content(json).characterEncoding("utf-8"));
 
         verify(modelMapper,times(1)).convertFromPlayer(playerService.createNewPlayer(playerDTO));
     }
 
     @Test
-    void getPlayerById() {
+    void getPlayerById() throws Exception {
+        int playerId = 1;
+
+        mockMvc.perform(get("/api/players/{playerId}", playerId).contentType(MediaType.APPLICATION_JSON)
+                .param("playerId", Integer.toString(playerId)));
+
+        verify(modelMapper,times(1)).convertFromPlayer(playerService.getPlayerById(playerId));
     }
 
     @Test
