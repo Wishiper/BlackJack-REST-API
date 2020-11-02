@@ -38,6 +38,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     public static final String ACTION_NOT_ALLOWED = "Action with name: %s is not allowed";
 
+    public static final String NOT_ENOUGH_BALANCE = "Player balance is not enough for player with id: %s";
+
     /**
      * Creates new player and save it into the database.
      * @param playerDTO PlayerDTO object.
@@ -78,9 +80,13 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player placeBet(int playerId, double playerBet) {
         Player player = isPlayerPresent(playerId);
-        player.setBet(playerBet);
-        player.setBalance(player.getBalance() - playerBet);
-        playerRepository.save(player);
+        if(playerBet>player.getBalance()){
+            throw new ApiRequestException(String.format(NOT_ENOUGH_BALANCE,playerId));
+        }else{
+            player.setBet(playerBet);
+            player.setBalance(player.getBalance() - playerBet);
+            playerRepository.save(player);
+        }
         return player;
     }
 

@@ -14,14 +14,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -86,7 +86,7 @@ class PlayerServiceImplTest {
 
         Exception exception = assertThrows(ApiRequestException.class, () -> playerService.getPlayerById(playerId));
 
-        String expectedMessage = "Player with id: 1 was not found";
+        String expectedMessage = String.format(PlayerServiceImpl.PLAYER_NOT_FOUND,playerId);
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -102,7 +102,40 @@ class PlayerServiceImplTest {
     }
 
     @Test
-    void placeBet() {
+    void placeBet_ShouldSetPlayerBetCorrect_WhenPlayerHasEnoughBalance() {
+        double playerBet = 225.0;
+        int playerId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(225);
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        Player resultPlayer = playerService.placeBet(playerId,playerBet);
+
+        verify(playerRepository,times(1)).save(player);
+        assertEquals(playerBet,resultPlayer.getBet());
+    }
+
+    @Test
+    void placeBet_ShouldThrowNOT_ENOUGH_BALANCE_WhenPlayerHasNotEnoughBalance() {
+        double playerBet = 225.0;
+        int playerId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+        player.setBalance(100);
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        Exception exception = assertThrows(ApiRequestException.class, () -> playerService.placeBet(playerId,playerBet));
+
+        String expectedMessage = String.format(PlayerServiceImpl.NOT_ENOUGH_BALANCE,playerId);
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 
     @Test
@@ -195,6 +228,99 @@ class PlayerServiceImplTest {
     }
 
     @Test
-    void executeAction() {
+    void executeAction_ShouldCallPlayerServiceHit_WithActionHit() {
+        String action = "hit";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.executeAction(action,playerId,handId);
+
+        verify(handService,times(1)).hit(player,handId);
+    }
+
+    @Test
+    void executeAction_ShouldCallPlayerServiceDouble_WithActionDouble() {
+        String action = "double";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.executeAction(action,playerId,handId);
+
+        verify(handService,times(1)).doubleDown(player,handId);
+    }
+
+    @Test
+    void executeAction_ShouldCallPlayerServiceSplit_WithActionSplit() {
+        String action = "split";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.executeAction(action,playerId,handId);
+
+        verify(handService,times(1)).split(player,handId);
+    }
+
+    @Test
+    void executeAction_ShouldCallPlayerServiceStand_WithActionStand() {
+        String action = "stand";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.executeAction(action,playerId,handId);
+
+        verify(handService,times(1)).stand(player,handId);
+    }
+
+    @Test
+    void executeAction_ShouldCallPlayerServiceSurrender_WithActionSurrender() {
+        String action = "surrender";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
+
+        playerService.executeAction(action,playerId,handId);
+
+        verify(handService,times(1)).surrender(player,handId);
+    }
+
+    @Test
+    void executeAction_ShouldThrowACTION_NOT_ALLOWED_WithActionTest() {
+        String action = "test";
+        int playerId = 1;
+        int handId = 1;
+        Player player = new Player();
+        player.setPlayerId(1);
+        player.setName("name");
+
+        Exception exception = assertThrows(ApiRequestException.class, () -> playerService.executeAction(action,playerId,handId));
+
+        String expectedMessage = String.format(PlayerServiceImpl.ACTION_NOT_ALLOWED,action);
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
