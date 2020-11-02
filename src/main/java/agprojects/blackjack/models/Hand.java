@@ -116,17 +116,21 @@ public final class Hand {
         checkIfSplittable();
         boolean softAceUsed = false;
 
-        //This Adjusts the value of the soft Ace in cases where aces are more than two
-        if(numberOfAces>= 2){
-            tempValue+=10;
+        if(numberOfAces>0){
+            softAceUsed=true;
+        }
+
+        // if there is only one ace and temp value is over 21 - the ace counts as 1
+        if(numberOfAces==1 && tempValue>21){
+            tempValue-=10;
+            softAceUsed = false;
         }
         // This while makes every Ace value to 1 if over 21 else if under 21 - its a soft ace
-        while (numberOfAces>0){
+        while (numberOfAces>1){
             if(tempValue>21){
                 tempValue -= 10;
                 numberOfAces -= 1;
             }else {
-                softAceUsed = true;
                 break;
             }
         }
@@ -135,7 +139,7 @@ public final class Hand {
             handValue = Integer.toString(tempValue);
         }
         // Returns the soft Ace value - 4/14 for example if cards are Ace and Three
-        if(tempValue < 21 && softAceUsed){
+        if(tempValue <= 21 && softAceUsed){
             handValue = tempValue - 10 + "/" + tempValue;
         }
         // If there is only two cards and tempValue is 21 then it is a BlackJack
