@@ -67,7 +67,7 @@ class HandTest {
     }
 
     @Test
-a    @DisplayName("evaluateHand should return 9/19 with SixTwoAce")
+    @DisplayName("evaluateHand should return 9/19 with SixTwoAce")
     void evaluateHand_ShouldReturnSoft19_WithSixTwoAndAce() {
         Hand hand = new Hand(SIX,TWO,ACE);
 
