@@ -67,6 +67,7 @@ class HandTest {
     }
 
     @Test
+a    @DisplayName("evaluateHand should return 9/19 with SixTwoAce")
     void evaluateHand_ShouldReturnSoft19_WithSixTwoAndAce() {
         Hand hand = new Hand(SIX,TWO,ACE);
 
@@ -76,6 +77,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 10/20 with NineAce")
     void evaluateHand_ShouldReturnSoft20_WithNineAndAce() {
         Hand hand = new Hand(NINE,ACE);
 
@@ -85,6 +87,17 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 10/20 with SixTwoAceAce")
+    void evaluateHand_ShouldReturnSoft20_WithSixTwoAndAceAce() {
+        Hand hand = new Hand(SIX,TWO,ACE,ACE);
+
+        hand.evaluateHand();
+
+        assertEquals("10/20",hand.getHandValue());
+    }
+
+    @Test
+    @DisplayName("evaluateHand should return 11/21 with NineAceAce")
     void evaluateHand_ShouldReturnSoft21_WithNineAndTwoAces() {
         Hand hand = new Hand(NINE,ACE,ACE);
 
@@ -94,6 +107,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 12 with SevenFourAce")
     void evaluateHand_ShouldReturn12_WithSevenFourAndAce() {
         Hand hand = new Hand(SEVEN,FOUR,ACE);
 
@@ -103,6 +117,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 22 - Bust with NineAceAceAce")
     void evaluateHand_ShouldReturnBUST_WithNineAndThreeAces_22() {
         Hand hand = new Hand(NINE,ACE,ACE,ACE);
 
@@ -112,6 +127,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 22 - Bust with ThreeEightAceTen")
     void evaluateHand_ShouldReturnBUST_With22() {
         Hand hand = new Hand(THREE,EIGHT,ACE,TEN);
 
@@ -121,6 +137,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 15 with TenFive")
     void evaluateHand_ShouldReturn15_WithTenAndFive() {
         Hand hand = new Hand(TEN,FIVE);
 
@@ -130,6 +147,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should return 21 with NineTwoTen")
     void evaluateHand_ShouldReturn21_WithNineTwoAndTen() {
         Hand hand = new Hand(NINE,TWO,TEN);
 
@@ -139,6 +157,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should set isBlackJack to true with TenAce")
     void evaluateHand_ShouldSetIsBlackJackToTrue_WhenThereIsABlackJack() {
         Hand hand = new Hand(TEN,ACE);
 
@@ -148,6 +167,17 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should leave isBlackJack to be false if there is no BlackJack")
+    void evaluateHand_IsBlackJackShouldBeFalse_WhenThereIsNoBlackJack() {
+        Hand hand = new Hand(TEN,SIX);
+
+        hand.evaluateHand();
+
+        assertFalse(hand.isBlackJack());
+    }
+
+    @Test
+    @DisplayName("evaluateHand should set isSplittable to true with TenTen")
     void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstAndSecondCardAreSameValue() {
         Hand hand = new Hand(TEN,TEN);
 
@@ -156,6 +186,7 @@ class HandTest {
         assertTrue(hand.isSplittable());
     }
     @Test
+    @DisplayName("evaluateHand should set isSplittable to true with AceAce")
     void evaluateHand_ShouldSetIsSplitableToTrue_WhenFirstTwoCardsAreAceAndAce() {
         Hand hand = new Hand(ACE,ACE);
 
@@ -165,6 +196,7 @@ class HandTest {
     }
 
     @Test
+    @DisplayName("evaluateHand should set isBust to true with TenFiveSeven")
     void evaluateHand_ShouldSetIsBustToTrue_WhenOver22() {
         Hand hand = new Hand(TEN,FIVE,SEVEN);
 
@@ -173,8 +205,4 @@ class HandTest {
         assertTrue(hand.isBust());
     }
 
-
-    @Test
-    void evaluateTempHandValue() {
-    }
 }
