@@ -1,5 +1,5 @@
 
-# BlackJack Game-API
+# BlackJack Game REST-API
 
 **<h1>Summary:</h1>**
  To be added
