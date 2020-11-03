@@ -11,8 +11,9 @@
 - __H2 Embedded Database:__ 
 - __JUnit 5:__ 
 - __Gradle:__ 
+
 **<h1>ToDOs:</h1>**
-To be added
+ To be added
 **<h1>Contributors:</h1>**
 Alexander Georgiev(Wishiper)
 
