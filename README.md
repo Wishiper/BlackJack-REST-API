@@ -20,7 +20,6 @@
 - __Unit Testing:__ Code coverage is at around 80% at the moment - goal is to go 95%+
 - __Spring security:__ Authentication and Authorization and others
 - __User logging:__ Implement logging with Google and Facebook
-- __Unit Testing:__ Code coverage is at around 80% at the moment - goal is to go 95%+
 - __Swagger:__ Api documentation and endpoint contracts to be added
 - __Front-End:__ Front-End project to be created with Angular/React and a possible Android app too
 
