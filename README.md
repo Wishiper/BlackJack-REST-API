@@ -6,10 +6,11 @@
 **<h1>Project purpose:</h1>**
  To be added
 **<h1>Technologies:</h1>**
-SpringBoot
-JUnit 5
-H2 Embedded Database
-To be added
+- __Java:__ 
+- __SpringBoot:__ 
+- __H2 Embedded Database:__ 
+- __JUnit 5:__ 
+- __Gradle:__ 
 **<h1>ToDOs:</h1>**
 To be added
 **<h1>Contributors:</h1>**
